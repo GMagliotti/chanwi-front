@@ -16,52 +16,46 @@ const ProducerActivePostInformationCard: React.FC<ProducerActivePostInformationC
   const { t } = useTranslation();
 
   return (
-    <>
-      <Card
-        hoverable
-      >
-        {/* Header section with title, timestamp, and values in first row */}
-        <div style={{ marginBottom: '8px' }}>
-          <div className={styles.cardHeader}>
-            <div>
-              <Title level={4} className = {styles.cardTitle}>{post.title}</Title>
-              <Text type="secondary" className={styles.cardTimestamp}>
-                <ClockCircleOutlined className={styles.cardTimestampIcon}/>
-                {post.start.getDate()}
-              </Text>
-            </div>
-
-            <Space size="large">
-              <div>
-                <Text type="secondary">{t("stock")}</Text>
-                <div>
-                  <Text strong>{post.stock}</Text>
-                </div>
-              </div>
-
-              <div>
-                <Text type="secondary">{t("price")}</Text>
-                <div>
-                  <Text strong>{post.price}</Text>
-                </div>
-              </div>
-            </Space>
-          </div>
+    <Card
+      hoverable
+      style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+    >
+      {/* Header section with title, timestamp, and values in first row */}
+      <div style={{ marginBottom: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '240px' }}>
+        <Title level={4} className={styles.cardTitle}>{post.title}</Title>
+        <Text type="secondary" >
+          <ClockCircleOutlined />
+          {post.start.toLocaleString()}
+        </Text>
+        <Text type="secondary" >
+          <ClockCircleOutlined />
+          {post.end.toLocaleString()}
+        </Text>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div>
+          <Text type="secondary">{t("stock")}:</Text>
+          <Text strong> {post.stock}</Text>
         </div>
+        <div>
+          <Text type="secondary">{t("price")}:</Text>
+          <Text strong> ${post.price}</Text>
+        </div>
+      </div>
 
-        {/* Tags section */}
-        {/* List section */}
-        <List
-          size="small"
-          dataSource={['sus 1', 'sus 2', 'sus 3']}
-          renderItem={(item) => (
-            <List.Item>
-              <Text>{item}</Text>
-            </List.Item>
-          )}
-        />
-      </Card>
-    </>
+      {/* Tags section */}
+      {/* List section */}
+      <List
+        size="small"
+        dataSource={['sus 1', 'sus 2', 'sus 3']}
+        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+        renderItem={(item) => (
+          <List.Item>
+            <Text>{item}</Text>
+          </List.Item>
+        )}
+      />
+    </Card>
   );
 };
 

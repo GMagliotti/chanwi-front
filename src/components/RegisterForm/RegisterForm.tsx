@@ -16,27 +16,9 @@ const RegisterForm: React.FC = () => {
     const [organizationName, setOrganizationName] = useState("");
     const navigation = useNavigate();
 
+
     const conditionalFields = () => {
         switch (selectedUserType) {
-            case "consumer":
-                return (
-                    <>
-                        <Form.Item label={t("first_name")} name="firstName" rules={[{ required: true, message: t("enter_first_name") }]}>
-                            <Input
-                                value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
-                                placeholder={t("enter_first_name")}
-                            />
-                        </Form.Item>
-                        <Form.Item label={t("last_name")} name="lastName" rules={[{ required: true, message: t("enter_last_name") }]}>
-                            <Input
-                                value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
-                                placeholder={t("enter_last_name")}
-                            />
-                        </Form.Item>
-                    </>
-                );
             case "producer":
                 return (
                     <>
@@ -75,10 +57,28 @@ const RegisterForm: React.FC = () => {
                         </Form.Item>
                     </>
                 );
-            default:
-                return null;
+                default:
+                    return (
+                        <>
+                            <Form.Item label={t("first_name")} name="firstName" rules={[{ required: true, message: t("enter_first_name") }]}>
+                                <Input
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                    placeholder={t("enter_first_name")}
+                                />
+                            </Form.Item>
+                            <Form.Item label={t("last_name")} name="lastName" rules={[{ required: true, message: t("enter_last_name") }]}>
+                                <Input
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                    placeholder={t("enter_last_name")}
+                                />
+                            </Form.Item>
+                        </>
+                    );
         }
     }
+
     return (
         <Card title={t("register")} style={{ width: 300, margin: "auto" }}>
             <Form layout="vertical">

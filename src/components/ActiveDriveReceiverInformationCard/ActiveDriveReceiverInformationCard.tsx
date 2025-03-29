@@ -16,26 +16,28 @@ const ActiveDriveReceiverInformationCard: React.FC<ActiveDriveReceiverInformatio
     const { t } = useTranslation();
 
     return (
-        <div className={styles.cardContainer}>
+        <>
             {posts.map((post) => (
                 <Card
-                    key={post.start.toISOString()} // Using `start` as a unique identifier for the key
                     hoverable
+                    style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
                 >
                     {/* Header section with title, timestamp, and values in first row */}
-                    <Title level={4} className={styles.cardTitle}>{post.title}</Title>
-                    <Text  className={styles.cardTimestamp}>
-                        <ClockCircleOutlined className={styles.cardTimestampIcon} />
-                        {t("from")} <Text type="secondary">{post.start.toLocaleString()}</Text>
-                    </Text>                
-                    <Text className={styles.cardTimestamp} style={{ paddingBottom: '8px'}}>
-                        <ClockCircleOutlined className={styles.cardTimestampIcon}  />
-                        {t("to")} <Text type="secondary">{post.start.toLocaleString()}</Text>
-                    </Text>
-                    <Text>{post.description}</Text>
+                    <div style={{ marginBottom: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '240px' }}>
+                        <Title level={4} className={styles.cardTitle}>{post.title}</Title>
+                        <Text type="secondary" >
+                            <ClockCircleOutlined />
+                            {post.start.toLocaleString()}
+                        </Text>
+                        <Text type="secondary" >
+                            <ClockCircleOutlined />
+                            {post.end.toLocaleString()}
+                        </Text>
+                        <Text style={{ textAlign: 'center', paddingTop: '6px' }}>{post.description}</Text>
+                    </div>
                 </Card>
             ))}
-        </div>
+        </>
     );
 };
 
