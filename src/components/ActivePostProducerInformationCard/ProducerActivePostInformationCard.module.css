@@ -1,0 +1,32 @@
+.cardContainer {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+}
+
+.card {
+    width: 500px;
+    max-width: 50%;
+    border-radius: 8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.cardTitle {
+    margin: 0
+}
+
+.cardTimestamp {
+    display: flex; 
+    align-items: center;
+}
+
+.cardTimestampIcon {
+    margin-right: 4px;
+}

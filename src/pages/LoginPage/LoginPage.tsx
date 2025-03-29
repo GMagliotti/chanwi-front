@@ -1,4 +1,3 @@
-import { Layout } from "antd"
 import LoginForm from "../../components/LoginForm/LoginForm"
 
 const LoginPage: React.FC = () => {
