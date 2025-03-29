@@ -12,13 +12,15 @@ interface ProducerProps {
 const ReceiverCard: React.FC<ProducerProps> = ({ producer, posts }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const [useTitle, setTitle] = useState<string>("");
 
     const [useCount, setCount] = useState<any>(1);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const showModal = () => {
+    const showModal = (title: string) => {
         setIsModalOpen(true);
+        setTitle(title)
     };
 
     const handleOk = () => {
@@ -48,7 +50,7 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer, posts }) => {
                     <div
                         key={post.id}
                         // onClick={() => navigate(`/posts/${post.id}`, { state: { post, producer } })} 
-                        onClick={() => showModal()} 
+                        onClick={() => showModal(post.title)} 
                         style={{ cursor: "pointer" }}
 
                     >
@@ -56,9 +58,9 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer, posts }) => {
                     </div>
                 ))}
             </Card>
-            <Modal title={t("purchase_confirmation")} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText={t("purchase")}>
-                <p>{t("purchase_confirmation_body")}</p>
-                <InputNumber min={1} max={10} defaultValue={1} onChange={onChange} style={{ marginTop: 10 }} />
+            <Modal title={t("purchase_confirmation")} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText={t("purchase")}   cancelButtonProps={{ style: { display: 'none' } }}>
+                <p>{t("purchase_confirmation_body")} {useTitle}?</p>
+                {t("quantity")}: <InputNumber min={1} max={10} defaultValue={1} onChange={onChange} style={{ marginTop: 10 }} />
             </Modal>
         </>
     );

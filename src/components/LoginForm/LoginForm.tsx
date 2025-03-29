@@ -22,7 +22,7 @@ const LoginForm: React.FC = () => {
     return (
         <Card title={t("login")} style={{ width: 300, margin: "auto", }}>
             <Form layout="vertical" onFinish={onFinish}>
-                <Form.Item label={t("user_type")}>
+                <Form.Item label={t("user_type")} style={{ marginBottom: '8px' }}>
                     <Select
                         value={selectedUserType}
                         onChange={(value) => setSelectedUserType(value)} // Correctly updates the state
@@ -33,10 +33,10 @@ const LoginForm: React.FC = () => {
                         <Select.Option value="receiver">{t("receiver")}</Select.Option>
                     </Select>
                 </Form.Item>
-                <Form.Item label={t("email")} name="email" rules={[{ required: true, type: "email", message: t("enter_email") }]}>
+                <Form.Item label={t("email")} name="email" rules={[{ required: true, type: "email", message: t("enter_email") }]} style={{ marginBottom: '8px' }}>
                     <Input placeholder={t("enter_email")} />
                 </Form.Item>
-                <Form.Item label={t("password")} name="password" rules={[{ required: true, message: t("enter_password") }]}>
+                <Form.Item label={t("password")} name="password" rules={[{ required: true, message: t("enter_password") }]} >
                     <Input.Password placeholder={t("enter_password")} />
                 </Form.Item>
                 <Form.Item>
@@ -45,7 +45,9 @@ const LoginForm: React.FC = () => {
                     </Button>
                 </Form.Item>
             </Form>
-            <div style={{ textAlign: "center", marginTop: "10px" }}>
+            <div style={{
+                textAlign: "center", marginTop: "10px", marginBottom: '8px'
+            }}>
                 <Button onClick={() => i18n.changeLanguage(i18n.language === "en" ? "es" : "en")}>
                     {t("change_language")}
                 </Button>

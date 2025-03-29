@@ -7,6 +7,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import ReceiverCard from '../ReceiverCard/ReceiverCard';
 import { dummyPosts, dummyProducers } from '../../dummies';
 
+
 const MapBox: React.FC = () => {
     const mapContainerRef = useRef<HTMLDivElement | null>(null);
     const mapRef = useRef<mapboxgl.Map | null>(null);

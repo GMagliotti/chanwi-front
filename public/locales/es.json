@@ -16,7 +16,7 @@
   "stock_left": "restante",
   "purchase": "Comprar",
   "purchase_confirmation": "Confirmar Compra",
-  "purchase_confirmation_body": "¿Estas seguro que deseas comprar este producto?",
+  "purchase_confirmation_body": "¿Estas seguro que deseas comprar",
   "consumer": "Consumidor",
   "producer": "Proveedor de Comida",
   "receiver": "Comunidad",
@@ -38,5 +38,6 @@
   "enter_organization_name": "Nombre de la institución",
   "stock": "Stock",
   "price": "Precio",
-  "food_provider": "Detalles de Comida"
+  "food_provider": "Detalles de Comida",
+  "quantity": "Cantidad"
 }

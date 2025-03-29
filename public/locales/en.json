@@ -16,7 +16,7 @@
   "stock_left": "left",
   "purchase": "Purchase",
   "purchase_confirmation": "Confirm Purchase",
-  "purchase_confirmation_body": "Are you sure you want to purchase this item?",
+  "purchase_confirmation_body": "Are you sure you want to purchase",
   "consumer": "Regular Customer",
   "producer": "Food Provider",
   "receiver": "Community Hub",
@@ -38,5 +38,6 @@
   "enter_organization_name": "Enter organization name",
   "stock": "Stock",
   "price": "Price",
-  "food_provider": "Food Details"
+  "food_provider": "Food Details",
+  "quantity": "Quantity"
 }

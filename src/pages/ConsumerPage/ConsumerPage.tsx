@@ -1,7 +1,4 @@
 import MapBox from "../../components/MapBox/MapBox"
-import ReceiverCard from "../../components/ReceiverCard/ReceiverCard"
-import { dummyPosts, dummyProducers } from "../../dummies"
-
 
 const ConsumerPage: React.FC = () => {
     return (
