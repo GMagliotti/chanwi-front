@@ -5,16 +5,16 @@ import { useNavigate } from "react-router"
 
 const RegisterForm: React.FC = () => {
     const { t, i18n } = useTranslation();
-    const [selectedUserType, setSelectedUserType] = useState("Consumer");
+    const [selectedUserType, setSelectedUserType] = useState(t("consumer"));
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [address, setAddress] = useState("");
-    const [firstName,setFirstName]=useState("");
-    const [lastName,setLastName]=useState("");
-    const [bussiness,setBussiness]=useState("");
-    const [organizationName,setOrganizationName]=useState("");
-    const navigation=useNavigate();
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [bussiness, setBussiness] = useState("");
+    const [organizationName, setOrganizationName] = useState("");
+    const navigation = useNavigate();
 
     const conditionalFields = () => {
         switch (selectedUserType) {
@@ -80,7 +80,7 @@ const RegisterForm: React.FC = () => {
         }
     }
     return (
-        <Card title="Register" style={{ width: 300, margin: "auto", marginTop: "50px" }}>
+        <Card title={t("register")} style={{ width: 300, margin: "auto" }}>
             <Form layout="vertical">
                 <Form.Item label={t("user_type")}>
                     <Select
@@ -88,12 +88,12 @@ const RegisterForm: React.FC = () => {
                         onChange={(value) => setSelectedUserType(value)} // Correctly updates the state
                         style={{ width: "100%" }}
                     >
-                        <Select.Option value="consumer">Consumidor</Select.Option>
-                        <Select.Option value="producer">Producer</Select.Option>
-                        <Select.Option value="receiver">Receiver</Select.Option>
+                        <Select.Option value="consumer">{t("consumer")}</Select.Option>
+                        <Select.Option value="producer">{t("producer")}</Select.Option>
+                        <Select.Option value="receiver">{t("receiver")}</Select.Option>
                     </Select>
                 </Form.Item>
-                
+
                 <Form.Item label={t("email")} name="email" rules={[{ required: true, type: "email", message: t("enter_email") }]}>
                     <Input
                         value={email}
@@ -112,7 +112,7 @@ const RegisterForm: React.FC = () => {
                     <Input.Password
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)} // Extracts value from the event object
-                        placeholder={t("confirm_password")}
+                        placeholder={t("enter_confirm_password")}
                     />
                 </Form.Item>
                 {conditionalFields()}
@@ -123,9 +123,9 @@ const RegisterForm: React.FC = () => {
                 </Form.Item>
             </Form>
             <Button onClick={() => i18n.changeLanguage(i18n.language === "en" ? "es" : "en")}>
-                🌍 Switch Language
+                {t("change_language")}
             </Button>
-            <a onClick={()=>navigation("/")} style={{ marginTop: "10px", display: "block", textAlign: "center", color: "blue" }}>
+            <a onClick={() => navigation("/")} style={{ marginTop: "20px", display: "block", textAlign: "center", color: "blue" }}>
                 {t("login_link")}
             </a>
         </Card>

@@ -3,6 +3,7 @@ declare global {
         id: number;
         email: string;
         businessName: string;
+        description?: string;
         location: string;
         address: string;
     }

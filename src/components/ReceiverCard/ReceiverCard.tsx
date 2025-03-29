@@ -13,7 +13,7 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer, posts }) => {
     return (
         <Card
             title={producer.businessName}
-            style={{ width: 300, textAlign: "left", marginTop: "50px" }}
+            style={{ width: 300, textAlign: "left", marginTop: "30px" }}
             extra={producer.location}
         >
             <p style={{ margin: 0 }}>{producer.address}</p>

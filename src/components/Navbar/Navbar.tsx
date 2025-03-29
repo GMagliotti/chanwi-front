@@ -1,7 +1,10 @@
 import { Row, Col, Spin, Divider } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 
 const Navbar: React.FC = () => {
+    const [ username, setUsername ] = useState(localStorage.getItem('username'))
+
+    
     return (
         <div>
             <Row
@@ -22,6 +25,7 @@ const Navbar: React.FC = () => {
                 >
                     <Spin size="large" style={{ margin: '0 auto' }} />
                 </Col>
+                {username}
             </Row>
             <Divider style={{ margin: 0 }} />
         </div>

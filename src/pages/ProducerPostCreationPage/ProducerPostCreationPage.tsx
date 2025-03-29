@@ -1,10 +1,18 @@
+import { useNavigate } from "react-router"
 import PostCreationForm from "../../components/PostCreationForm/PostCreationForm"
+import { GoBackButton } from "../../components/GoBackButton/GoBackButton";
 
 const ProducerPostCreationPage = () => {
+    const navigate = useNavigate();
+
     return (
-        <PostCreationForm 
-            onSubmit={() => {}}>
-        </PostCreationForm>
+        <>
+            <GoBackButton />
+            <PostCreationForm
+                onSubmit={() => { navigate('/me-producer') }}>
+            </PostCreationForm>
+        </>
+
     )
 }
 

@@ -1,10 +1,21 @@
-export const dummyProducer: Producer = {
+const dummyProducer: Producer = {
     id: 1,
     email: "producer@example.com",
     businessName: "Fresh Farm Goods",
     location: "New York, USA",
     address: "123 Greenway Road, NY 10001",
+    description: "Stonk land lorem ipsum"
 };
+
+const dummyProducer2: Producer = {
+    id: 2,
+    email: "producer2@example.com",
+    businessName: "Tonkas Lokas",
+    location: "CABA, BSAS",
+    address: "123 Ituzaingo, UA 10001",
+};
+
+export const dummyProducers = [ dummyProducer, dummyProducer2 ]
 
 export const dummyPosts: Post[] = [
     {
@@ -28,21 +39,31 @@ export const dummyPosts: Post[] = [
         stock: 20,
         start_time: new Date("2024-07-05T09:00:00Z"),
         end_time: new Date("2024-07-15T17:00:00Z"),
+    },    
+    {
+        id: 103,
+        producerId: dummyProducer2.id,
+        title: "Posti loca",
+        description: "Locreisi, coca",
+        price: 4.99,
+        tag: "Polo",
+        stock: 4,
+        start_time: new Date("2024-07-05T09:00:00Z"),
+        end_time: new Date("2024-07-15T17:00:00Z"),
     },
 ];
+
 export const dummyConsumer: Consumer = {
     id: 301,
     firstName: "John",
     lastName: "Juan",
-    email:"JohnJuan@mail.com"
-
+    email: "JohnJuan@mail.com"
 }
+
 export const dummyOrder: Order = {
-    id:201,
+    id: 201,
     producer: dummyProducer,
     consumer: dummyConsumer,
-    quantity:5,
+    quantity: 5,
     received: false
-
-
 }

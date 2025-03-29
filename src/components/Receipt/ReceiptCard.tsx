@@ -2,7 +2,7 @@ import { Consumer } from "react";
 import React, { useState } from "react";
 
 interface OrderProps {
-    order:Order;
+    order: Order;
 }
 
 const ReceiptCard: React.FC<OrderProps> = ({ order }) => {

@@ -3,7 +3,7 @@ declare global {
         id: number;
         producer: Producer;
         consumer: Consumer;
-        quantity:number;
+        quantity: number;
         received: boolean;
     }
 }
