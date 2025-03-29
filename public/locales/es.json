@@ -5,6 +5,9 @@
     "enter_email": "Introduce tu correo",
     "enter_password": "Introduce tu contraseña",
     "login_button": "Iniciar sesión",
-    "change_language": "Cambiar idioma"
+    "change_language": "Cambiar idioma",
+    "header_home": "Home",
+    "header_about": "Sobre nosotros",
+    "header_contact": "Contactanos"
   }
   

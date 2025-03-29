@@ -5,6 +5,9 @@
     "enter_email": "Enter your email",
     "enter_password": "Enter your password",
     "login_button": "Login",
-    "change_language": "Change language"
+    "change_language": "Change language",
+    "header_home": "Home",
+    "header_about": "About",
+    "header_contact": "Contact"
   }
   

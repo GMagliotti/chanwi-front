@@ -1,25 +1,15 @@
+import './i18n'
 import { ConfigProvider, Button } from 'antd'
 import { Routes, Route } from 'react-router'
 import './App.css'
-import './i18n'
-import LoginForm from './components/loginForm'
-
-const Landing: React.FC = () => {
-  return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h1>Welcome to My App</h1>
-      <Button type="primary" onClick={() => alert('Button clicked!')}>
-        Click Me
-      </Button>
-    </div>
-  )
-}
+import ChanwiHeader from './components/chanwiHeader'
+import LoginPage from './pages/LoginPage'
 
 const App: React.FC = () => {
   return (
     <ConfigProvider>
       <Routes>
-        <Route path='/' element={<LoginForm />} />
+        <Route path='/' element={<ChanwiHeader/>} />
       </Routes>
     </ConfigProvider>
   )
