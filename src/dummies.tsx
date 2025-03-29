@@ -30,3 +30,19 @@ export const dummyPosts: Post[] = [
         end_time: new Date("2024-07-15T17:00:00Z"),
     },
 ];
+export const dummyConsumer: Consumer = {
+    id: 301,
+    firstName: "John",
+    lastName: "Juan",
+    email:"JohnJuan@mail.com"
+
+}
+export const dummyOrder: Order = {
+    id:201,
+    producer: dummyProducer,
+    consumer: dummyConsumer,
+    quantity:5,
+    received: false
+
+
+}

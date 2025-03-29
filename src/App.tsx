@@ -4,10 +4,12 @@ import { Routes, Route } from 'react-router'
 import './App.css'
 import LoginPage from './pages/LoginPage/LoginPage'
 import CustomLayout from './components/CustomLayout/CustomLayout'
-import RegisterForm from './components/LoginForm/RegisterForm/RegisterForm'
+import RegisterForm from './components/RegisterForm/RegisterForm'
+import ReceiptCard from './components/Receipt/ReceiptCard'
 import ReceiverCard from './components/ReceiverCard/ReceiverCard'
-import { dummyPosts, dummyProducer } from './dummies'
+import { dummyOrder, dummyPosts, dummyProducer } from './dummies'
 import ReceiverPurchasePage from './pages/ReceiverPurchasePage/ReceiverPurchasePage'
+
 
 const App: React.FC = () => {
   return (
@@ -20,6 +22,7 @@ const App: React.FC = () => {
             <Route path='/register' element={<RegisterForm/>} />
             <Route path='/producers' element={<ReceiverCard producer={dummyProducer} posts={dummyPosts}/>} />
             <Route path='/posts/:id/' element={<ReceiverPurchasePage />} />
+            <Route path='/order/:id/' element={<ReceiptCard order={dummyOrder} />} />
           </Routes>
         }
       </CustomLayout>
