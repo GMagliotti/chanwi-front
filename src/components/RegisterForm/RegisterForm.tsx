@@ -1,6 +1,7 @@
 import { Card, Form, Input, Button, Select } from "antd"
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 
 const RegisterForm: React.FC = () => {
     const { t, i18n } = useTranslation();
@@ -13,6 +14,7 @@ const RegisterForm: React.FC = () => {
     const [lastName,setLastName]=useState("");
     const [bussiness,setBussiness]=useState("");
     const [organizationName,setOrganizationName]=useState("");
+    const navigation=useNavigate();
 
     const conditionalFields = () => {
         switch (selectedUserType) {
@@ -123,8 +125,8 @@ const RegisterForm: React.FC = () => {
             <Button onClick={() => i18n.changeLanguage(i18n.language === "en" ? "es" : "en")}>
                 🌍 Switch Language
             </Button>
-            <a href="/" style={{ marginTop: "10px", display: "block", textAlign: "center", color: "blue" }}>
-                Already have an account? Login
+            <a onClick={()=>navigation("/")} style={{ marginTop: "10px", display: "block", textAlign: "center", color: "blue" }}>
+                {t("login_link")}
             </a>
         </Card>
     )
