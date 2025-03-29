@@ -19,7 +19,7 @@ const LunchBoxCard: React.FC<LunchBoxProps> = ({ post }) => {
         >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <Text>{post.tag}</Text>
-                <Text>{post.stock} left</Text>
+                <Text>{post.stock} {t("stock_left")}</Text>
             </div>
             <Text type="secondary">{post.description}</Text>
         </Card>

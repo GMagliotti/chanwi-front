@@ -1,14 +1,14 @@
 import { Card } from "antd"
-import { useTranslation } from "react-i18next"
 import LunchBoxCard from "../LunchboxCard/LunchBoxCard";
+import { useNavigate } from "react-router";
 
 interface ProducerProps {
     producer: Producer;
     posts: Post[];
 }
 
-const ProducerCard: React.FC<ProducerProps> = ({ producer, posts }) => {
-    // const { t } = useTranslation();
+const ReceiverCard: React.FC<ProducerProps> = ({ producer, posts }) => {
+    const navigate = useNavigate();
 
     return (
         <Card
@@ -19,10 +19,16 @@ const ProducerCard: React.FC<ProducerProps> = ({ producer, posts }) => {
             <p style={{ margin: 0 }}>{producer.address}</p>
 
             {posts.map((post) => (
-                <LunchBoxCard key={post.id} post={post} />
+                <div 
+                key={post.id} 
+                onClick={() => navigate(`/posts/${post.id}`, { state: { post, producer } })} 
+                style={{ cursor: "pointer" }}
+            >
+                <LunchBoxCard post={post} />
+            </div>
             ))}
         </Card>
     );
 };
 
-export default ProducerCard
+export default ReceiverCard

@@ -5,6 +5,9 @@ import './App.css'
 import LoginPage from './pages/LoginPage/LoginPage'
 import CustomLayout from './components/CustomLayout/CustomLayout'
 import RegisterForm from './components/LoginForm/RegisterForm/RegisterForm'
+import ReceiverCard from './components/ReceiverCard/ReceiverCard'
+import { dummyPosts, dummyProducer } from './dummies'
+import ReceiverPurchasePage from './pages/ReceiverPurchasePage/ReceiverPurchasePage'
 
 const App: React.FC = () => {
   return (
@@ -15,6 +18,8 @@ const App: React.FC = () => {
             <Route path='/' element={<LoginPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<RegisterForm/>} />
+            <Route path='/producers' element={<ReceiverCard producer={dummyProducer} posts={dummyPosts}/>} />
+            <Route path='/posts/:id/' element={<ReceiverPurchasePage />} />
           </Routes>
         }
       </CustomLayout>

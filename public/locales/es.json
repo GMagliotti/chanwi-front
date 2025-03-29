@@ -8,6 +8,10 @@
     "change_language": "Cambiar idioma",
     "header_home": "Home",
     "header_about": "Sobre nosotros",
-    "header_contact": "Contactanos"
+    "header_contact": "Contactanos",
+    "stock_left": "restante",
+    "purchase": "Comprar",
+    "purchase_confirmation": "Confirmar Compra",
+    "purchase_confirmation_body": "¿Estas seguro que deseas comprar este producto?"
   }
   

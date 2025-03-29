@@ -8,6 +8,10 @@
     "change_language": "Change language",
     "header_home": "Home",
     "header_about": "About",
-    "header_contact": "Contact"
+    "header_contact": "Contact",
+    "stock_left": "left",
+    "purchase": "Purchase",
+    "purchase_confirmation": "Confirm Purchase",
+    "purchase_confirmation_body": "Are you sure you want to purchase this item?"
   }
   
