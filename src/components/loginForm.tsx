@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
                 </Form.Item>
             </Form>
             <Button onClick={() => i18n.changeLanguage(i18n.language === "en" ? "es" : "en")}>
-                🌍 Switch Language
+                t("change_language")
             </Button>
         </Card>
     )
