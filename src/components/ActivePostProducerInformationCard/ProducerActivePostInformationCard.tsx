@@ -1,6 +1,7 @@
 import styles from './ProducerActivePostInformationCard.module.css';
 import { Card, Typography, Space, List } from 'antd';
 import { ClockCircleOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 const { Title, Text } = Typography;
 
@@ -23,6 +24,7 @@ const ProducerActivePostInformationCard: React.FC<ProducerActivePostInformationC
   valueOneLabel = "Value One",
   valueTwoLabel = "Value Two"
 }) => {
+
   return (
     <div className={styles.cardContainer}>
       <Card
