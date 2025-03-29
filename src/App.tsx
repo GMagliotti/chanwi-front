@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router'
 import './App.css'
 import LoginPage from './pages/LoginPage/LoginPage'
 import CustomLayout from './components/CustomLayout/CustomLayout'
+import RegisterForm from './components/LoginForm/RegisterForm/RegisterForm'
 
 const App: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path='/' element={<LoginPage />} />
             <Route path='/login' element={<LoginPage />} />
+            <Route path='/register' element={<RegisterForm/>} />
           </Routes>
         }
       </CustomLayout>
