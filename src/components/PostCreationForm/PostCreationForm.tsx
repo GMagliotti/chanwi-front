@@ -8,20 +8,17 @@ import {
   Space, 
   Row, 
   Col, 
-  Card,
-  Select
+  Card
 } from 'antd';
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
-import moment from 'moment';
-import { RangePickerProps } from 'antd/es/date-picker';
+import dayjs from 'dayjs';
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
-const { Option } = Select;
 
 // Define interfaces for our form data
-interface EventFormValues {
-  dateTimeRange: [moment.Moment, moment.Moment];
+interface PostCreationFormValues {
+  dateTimeRange: [dayjs.Dayjs, dayjs.Dayjs];
   name: string;
   description: string;
   tags: string[];
@@ -29,45 +26,37 @@ interface EventFormValues {
   price: number;
 }
 
-interface EventFormProps {
-  initialValues?: Partial<EventFormValues>;
-  onSubmit: (values: EventFormValues) => void;
+interface PostCreationFormProps {
+  initialValues?: Partial<PostCreationFormValues>;
+  onSubmit: (values: PostCreationFormValues) => void;
   loading?: boolean;
 }
 
-const PostCreationForm: React.FC<EventFormProps> = ({ 
-  initialValues, 
+const PostCreationForm: React.FC<PostCreationFormProps> = ({ 
   onSubmit, 
   loading = false 
 }) => {
   const [form] = Form.useForm();
   
   // For custom tag input
-  const [tags, setTags] = useState<string[]>(initialValues?.tags || []);
+  const [tags, setTags] = useState<string[]>([]);
   const [inputTagValue, setInputTagValue] = useState<string>('');
   
-  const handleSubmit = (values: any) => {
-    const formattedValues: EventFormValues = {
-      ...values,
-      tags: tags
-    };
-    
-    onSubmit(formattedValues);
+  const handleSubmit = (values: PostCreationFormValues) => {
+    onSubmit({ ...values, tags });
   };
   
   // Function to handle adding new tags
   const handleAddTag = () => {
     if (inputTagValue && !tags.includes(inputTagValue)) {
-      const newTags = [...tags, inputTagValue];
-      setTags(newTags);
+      setTags([...tags, inputTagValue]);
       setInputTagValue('');
     }
   };
   
   // Function to remove a tag
   const handleRemoveTag = (removedTag: string) => {
-    const newTags = tags.filter(tag => tag !== removedTag);
-    setTags(newTags);
+    setTags(tags.filter(tag => tag !== removedTag));
   };
 
   return (
@@ -76,7 +65,6 @@ const PostCreationForm: React.FC<EventFormProps> = ({
         form={form}
         layout="vertical"
         onFinish={handleSubmit}
-        initialValues={initialValues}
       >
         {/* Date Range Row */}
         <Row gutter={16}>
@@ -117,10 +105,7 @@ const PostCreationForm: React.FC<EventFormProps> = ({
               label="Description"
               rules={[{ required: true, message: 'Please enter event description' }]}
             >
-              <TextArea 
-                placeholder="Enter event description" 
-                autoSize={{ minRows: 3, maxRows: 6 }}
-              />
+              <TextArea placeholder="Enter event description" autoSize={{ minRows: 3, maxRows: 6 }} />
             </Form.Item>
           </Col>
         </Row>
@@ -142,7 +127,7 @@ const PostCreationForm: React.FC<EventFormProps> = ({
                 </Button>
               </Input.Group>
               <div style={{ marginTop: 8 }}>
-                {tags.map((tag, index) => (
+                {tags.map((tag) => (
                   <Space 
                     key={tag} 
                     style={{ display: 'inline-flex', margin: '0 8px 8px 0', background: '#f0f0f0', padding: '2px 8px', borderRadius: '4px' }}
@@ -167,11 +152,7 @@ const PostCreationForm: React.FC<EventFormProps> = ({
               label="Stock/Quantity"
               rules={[{ required: true, message: 'Please enter stock quantity' }]}
             >
-              <InputNumber 
-                style={{ width: '100%' }} 
-                min={0} 
-                placeholder="Enter quantity"
-              />
+              <InputNumber style={{ width: '100%' }} min={0} placeholder="Enter quantity" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -185,8 +166,7 @@ const PostCreationForm: React.FC<EventFormProps> = ({
                 min={0}
                 step={0.01}
                 precision={2}
-                formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                parser={value => Number(value!.replace(/\$\s?|(,*)/g, ''))}
+                formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 placeholder="Enter price"
               />
             </Form.Item>
