@@ -1,7 +1,7 @@
 import { Card, Form, Input, Button, Select } from "antd"
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router"
 
 const RegisterForm: React.FC = () => {
     const { t, i18n } = useTranslation();
