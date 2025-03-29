@@ -13,11 +13,11 @@ const ReceiverDrivesPage: React.FC = () => {
     const { t } = useTranslation();
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingInline: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', paddingInline: '32px', paddingTop:'42px' , alignItems:'center' }}>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
                 <GoBackButton />
-                <p style={{ position: 'fixed', left: '50%', transform: 'translateX(-50%)', textAlign: 'center', margin: 0,fontSize: '20px' }}>{t("consumer")}</p>
+                <p style={{ position: 'fixed', left: '50%', transform: 'translateX(-50%)', textAlign: 'center', margin: 0,fontSize: '20px' }}>{t("receiver")}</p>
                 <div />
             </div>
             <ActiveDriveReceiverInformationCard

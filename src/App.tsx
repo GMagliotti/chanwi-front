@@ -13,6 +13,7 @@ import GenericPage from './pages/GenericPage/GenericPage'
 import LoginForm from './components/LoginForm/LoginForm'
 import ConsumerPurchasePage from './pages/ConsumerPurchasePage/ConsumerPurchasePage'
 import ReceiverDrivesPage from './pages/ReceiverDrivesPage/ReceiverDrivesPage'
+import ReceiverDrivesCreationPage from './pages/ReceiverDrivesCreationPage/ReceiverDrivesCreationPage'
 
 
 const App: React.FC = () => {
@@ -30,7 +31,7 @@ const App: React.FC = () => {
             <Route path='/me-producer' element={<ProducerPostsManagementPage/>} />
             <Route path='/me-producer/create' element={<ProducerPostCreationPage/>} />
             <Route path='/me-receiver' element={<ReceiverDrivesPage/>}/>
-            <Route path='/me-receiver/create' />
+            <Route path='/me-receiver/create' element={<ReceiverDrivesCreationPage/>}/>
           </Routes>
         }
       </CustomLayout>

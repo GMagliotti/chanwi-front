@@ -1,5 +1,6 @@
 import { Row, Col, Spin, Divider } from 'antd';
 import React, { useState } from 'react';
+import AppHeader from '../AppHeader/AppHeader';
 
 const Navbar: React.FC = () => {
     const [ username, setUsername ] = useState(localStorage.getItem('username'))
@@ -17,15 +18,7 @@ const Navbar: React.FC = () => {
                     backgroundColor: '#001529',
                 }}
             >
-                <Col 
-                    sm={4} 
-                    xs={4} 
-                    md={7} 
-                    lg={7}
-                >
-                    <Spin size="large" style={{ margin: '0 auto' }} />
-                </Col>
-                {username}
+                {/* {username ? username : <AppHeader/>} */}
             </Row>
             <Divider style={{ margin: 0 }} />
         </div>

@@ -1,4 +1,4 @@
-import { Card, Form, Input, Button,Select } from "antd"
+import { Card, Form, Input, Button, Select } from "antd"
 import { useTranslation } from "react-i18next"
 import React, { useState } from "react"
 import { useNavigate } from "react-router"
@@ -20,9 +20,9 @@ const LoginForm: React.FC = () => {
     };
 
     return (
-        <Card title={t("login")} style={{ width: 300, margin: "auto" }}>
+        <Card title={t("login")} style={{ width: 300, margin: "auto", }}>
             <Form layout="vertical" onFinish={onFinish}>
-            <Form.Item label={t("user_type")}>
+                <Form.Item label={t("user_type")}>
                     <Select
                         value={selectedUserType}
                         onChange={(value) => setSelectedUserType(value)} // Correctly updates the state
@@ -45,10 +45,12 @@ const LoginForm: React.FC = () => {
                     </Button>
                 </Form.Item>
             </Form>
-            <Button onClick={() => i18n.changeLanguage(i18n.language === "en" ? "es" : "en")}>
-                {t("change_language")}
-            </Button>
-            <a onClick={()=>navigation("/register")} style={{ marginTop: "20px", display: "block", textAlign: "center", color: "blue" }}>
+            <div style={{ textAlign: "center", marginTop: "10px" }}>
+                <Button onClick={() => i18n.changeLanguage(i18n.language === "en" ? "es" : "en")}>
+                    {t("change_language")}
+                </Button>
+            </div>
+            <a onClick={() => navigation("/register")} style={{ marginTop: "20px", display: "block", textAlign: "center", color: "blue" }}>
                 {t("register_link")}
             </a>
         </Card>

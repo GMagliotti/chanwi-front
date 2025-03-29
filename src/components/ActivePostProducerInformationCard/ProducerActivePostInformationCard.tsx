@@ -16,10 +16,9 @@ const ProducerActivePostInformationCard: React.FC<ProducerActivePostInformationC
   const { t } = useTranslation();
 
   return (
-    <div className={styles.cardContainer}>
+    <>
       <Card
         hoverable
-        className={styles.card}
       >
         {/* Header section with title, timestamp, and values in first row */}
         <div style={{ marginBottom: '8px' }}>
@@ -62,7 +61,7 @@ const ProducerActivePostInformationCard: React.FC<ProducerActivePostInformationC
           )}
         />
       </Card>
-    </div>
+    </>
   );
 };
 

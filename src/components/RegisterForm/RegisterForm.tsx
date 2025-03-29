@@ -122,9 +122,11 @@ const RegisterForm: React.FC = () => {
                     </Button>
                 </Form.Item>
             </Form>
-            <Button onClick={() => i18n.changeLanguage(i18n.language === "en" ? "es" : "en")}>
-                {t("change_language")}
-            </Button>
+            <div style={{ textAlign: "center", marginTop: "10px" }}>
+                <Button onClick={() => i18n.changeLanguage(i18n.language === "en" ? "es" : "en")}>
+                    {t("change_language")}
+                </Button>
+            </div>
             <a onClick={() => navigation("/")} style={{ marginTop: "20px", display: "block", textAlign: "center", color: "blue" }}>
                 {t("login_link")}
             </a>
