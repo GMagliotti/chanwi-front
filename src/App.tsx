@@ -1,6 +1,8 @@
 import { ConfigProvider, Button } from 'antd'
 import { Routes, Route } from 'react-router'
 import './App.css'
+import './i18n'
+import LoginForm from './components/loginForm'
 
 const Landing: React.FC = () => {
   return (
@@ -17,7 +19,7 @@ const App: React.FC = () => {
   return (
     <ConfigProvider>
       <Routes>
-        <Route path='/' element={<Landing />} />
+        <Route path='/' element={<LoginForm />} />
       </Routes>
     </ConfigProvider>
   )
