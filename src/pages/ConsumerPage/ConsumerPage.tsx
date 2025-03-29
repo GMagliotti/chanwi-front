@@ -3,7 +3,7 @@ import ReceiverCard from "../../components/ReceiverCard/ReceiverCard"
 import { dummyPosts, dummyProducers } from "../../dummies"
 
 
-const ReceiverPage: React.FC = () => {
+const ConsumerPage: React.FC = () => {
     return (
         <MapBox />
         // <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -12,4 +12,4 @@ const ReceiverPage: React.FC = () => {
     )
 }
 
-export default ReceiverPage
+export default ConsumerPage

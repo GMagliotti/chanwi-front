@@ -5,13 +5,13 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { GoBackButton } from "../../components/GoBackButton/GoBackButton";
 
-interface ReceiverPurchasePageProps {
+interface ConsumerPurchasePageProps {
     // producer: Producer;
     // posts: Post[];
     // setSelectedPost: (post: Post) => void;
 }
 
-const ReceiverPurchasePage: React.FC<ReceiverPurchasePageProps> = ({ }) => {
+const ConsumerPurchasePage: React.FC<ConsumerPurchasePageProps> = ({ }) => {
     const { t } = useTranslation();
     const location = useLocation();
     const [useCount, setCount] = useState<any>(1);
@@ -59,4 +59,4 @@ const ReceiverPurchasePage: React.FC<ReceiverPurchasePageProps> = ({ }) => {
     );
 };
 
-export default ReceiverPurchasePage;
+export default ConsumerPurchasePage;

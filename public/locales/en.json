@@ -22,5 +22,8 @@
   "receiver": "Receiver",
   "user_type": "What fits your needs?",
   "register_link": "Register instead",
-  "login_link": "Login instead"
+  "login_link": "Login instead",
+  "from": "From:",
+  "to": "To:",
+  "until": "Activo hasta"
 }

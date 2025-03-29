@@ -22,5 +22,8 @@
   "receiver": "Receptor",
   "user_type": "¿Que te clasifica mejor?",
   "register_link": "Registrate aqui",
-  "login_link": "Iniciar sesión"
+  "login_link": "Iniciar sesión",
+  "from": "De:",
+  "to": "Hasta:",
+  "until": "Finaliza:"
 }

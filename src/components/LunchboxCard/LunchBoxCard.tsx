@@ -11,11 +11,12 @@ const LunchBoxCard: React.FC<LunchBoxProps> = ({ post }) => {
     const { t } = useTranslation();
 
     return (
-        <Card 
-            title={post.title} 
-            style={{ textAlign: "left", marginTop: "20px" }}
+        <Card
+            title={post.title}
+            style={{ textAlign: "left" }}
             type="inner"
             extra={`$${post.price.toFixed(2)}`}
+            headStyle={{ backgroundColor: "rgba(56, 163, 165, 0.5)", }}
         >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <Text>{post.tag}</Text>

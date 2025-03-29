@@ -1,4 +1,3 @@
-import { Button } from "antd";
 import { useNavigate} from "react-router";
 
 import {
@@ -9,7 +8,7 @@ export const GoBackButton = () => {
     let navigate = useNavigate();
     return (
         <>
-          <Button type="primary" icon={<LeftOutlined/>} onClick={() => navigate(-1)}></Button> 
+          <LeftOutlined type="primary" style={{ padding: '10px', fontSize: '20px'}} onClick={() => navigate(-1)}></LeftOutlined> 
         </>
     );
 };

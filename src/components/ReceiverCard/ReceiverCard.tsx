@@ -12,17 +12,17 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer, posts }) => {
 
     return (
         <Card
-            title={producer.businessName}
-            style={{ width: 300, textAlign: "left", marginTop: "30px" }}
-            extra={producer.location}
+            title={<div style={{ paddingBlock: '8px'}}>{producer.businessName}<p style={{ margin: 0 , fontWeight:'normal', fontSize: '14px'}}>{producer.address}</p> </div>}
+            style={{ width: 300, textAlign: "left", marginTop: 0}}
+            headStyle={{ backgroundColor: "rgba(34, 87, 122, 0.7)", }}
+            // size="small"
         >
-            <p style={{ margin: 0 }}>{producer.address}</p>
-
             {posts.map((post) => (
                 <div 
                 key={post.id} 
                 onClick={() => navigate(`/posts/${post.id}`, { state: { post, producer } })} 
                 style={{ cursor: "pointer" }}
+                
             >
                 <LunchBoxCard post={post} />
             </div>

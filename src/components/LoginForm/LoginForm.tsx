@@ -15,7 +15,7 @@ const LoginForm: React.FC = () => {
         console.log(localStorage.getItem('username'))
         if (selectedUserType == "consumer") navigation('/producers')
         if (selectedUserType == "producer") navigation('/me-producer')
-        if (selectedUserType == "receiver") navigation('/tonka')
+        if (selectedUserType == "receiver") navigation('/me-receiver')
         // navigation("/home");
     };
 

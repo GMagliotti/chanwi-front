@@ -2,28 +2,18 @@ import styles from './ProducerActivePostInformationCard.module.css';
 import { Card, Typography, Space, List } from 'antd';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import { ActivePost } from '../../models/ActiveEvents';
 
 const { Title, Text } = Typography;
 
 interface ProducerActivePostInformationCardProps {
-  title: string;
-  timestamp: string;
-  valueOne: string | number;
-  valueTwo: string | number;
-  listItems?: string[];
-  valueOneLabel?: string;
-  valueTwoLabel?: string;
+  post: ActivePost
 }
 
 const ProducerActivePostInformationCard: React.FC<ProducerActivePostInformationCardProps> = ({
-  title,
-  timestamp,
-  valueOne,
-  valueTwo,
-  listItems = [],
-  valueOneLabel = "Value One",
-  valueTwoLabel = "Value Two"
+  post
 }) => {
+  const { t } = useTranslation();
 
   return (
     <div className={styles.cardContainer}>
@@ -35,25 +25,25 @@ const ProducerActivePostInformationCard: React.FC<ProducerActivePostInformationC
         <div style={{ marginBottom: '8px' }}>
           <div className={styles.cardHeader}>
             <div>
-              <Title level={4} className = {styles.cardTitle}>{title}</Title>
+              <Title level={4} className = {styles.cardTitle}>{post.title}</Title>
               <Text type="secondary" className={styles.cardTimestamp}>
                 <ClockCircleOutlined className={styles.cardTimestampIcon}/>
-                {timestamp}
+                {post.start.getDate()}
               </Text>
             </div>
 
             <Space size="large">
               <div>
-                <Text type="secondary">{valueOneLabel}</Text>
+                <Text type="secondary">{t("stock")}</Text>
                 <div>
-                  <Text strong>{valueOne}</Text>
+                  <Text strong>{post.stock}</Text>
                 </div>
               </div>
 
               <div>
-                <Text type="secondary">{valueTwoLabel}</Text>
+                <Text type="secondary">{t("price")}</Text>
                 <div>
-                  <Text strong>{valueTwo}</Text>
+                  <Text strong>{post.price}</Text>
                 </div>
               </div>
             </Space>
@@ -64,7 +54,7 @@ const ProducerActivePostInformationCard: React.FC<ProducerActivePostInformationC
         {/* List section */}
         <List
           size="small"
-          dataSource={listItems}
+          dataSource={['sus 1', 'sus 2', 'sus 3']}
           renderItem={(item) => (
             <List.Item>
               <Text>{item}</Text>
