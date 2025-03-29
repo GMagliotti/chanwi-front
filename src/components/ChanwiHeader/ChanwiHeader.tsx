@@ -1,5 +1,6 @@
 import { Layout, Menu, Button } from "antd"
 import { useTranslation } from "react-i18next"
+import styles from "./ChanwiHeader.module.css"
 
 const { Header } = Layout
 
@@ -7,7 +8,7 @@ const ChanwiHeader: React.FC = () => {
     const { t, i18n } = useTranslation()
 
     return (
-        <Header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0 20px", background: "#001529" }}>
+        <Header className={styles.header}>
             <div style={{ color: "white", fontSize: "20px", fontWeight: "bold" }}>
                 MyApp
             </div>

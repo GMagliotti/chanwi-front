@@ -2,7 +2,7 @@ import './i18n'
 import { ConfigProvider, Button } from 'antd'
 import { Routes, Route } from 'react-router'
 import './App.css'
-import ChanwiHeader from './components/chanwiHeader'
+import ChanwiHeader from './components/ChanwiHeader/ChanwiHeader'
 import LoginPage from './pages/LoginPage'
 
 const App: React.FC = () => {

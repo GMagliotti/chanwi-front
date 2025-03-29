@@ -1,6 +1,6 @@
 import { Layout } from "antd"
-import ChanwiHeader from "../components/ChanwiHeader"
-import LoginForm from "../components/LoginForm"
+import ChanwiHeader from "../components/ChanwiHeader/ChanwiHeader"
+import LoginForm from "../components/LoginForm/LoginForm"
 
 const { Content } = Layout
 
