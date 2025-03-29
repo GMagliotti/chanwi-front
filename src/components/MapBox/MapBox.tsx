@@ -1,16 +1,24 @@
 import { useRef, useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
+const { Text } = Typography; // Asegura que estás usando Text de antd
 
 import './MapBox.css'
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import ReceiverCard from '../ReceiverCard/ReceiverCard';
 import { dummyPosts, dummyProducers } from '../../dummies';
+import { Avatar, Checkbox, CheckboxProps, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 
 const MapBox: React.FC = () => {
     const mapContainerRef = useRef<HTMLDivElement | null>(null);
     const mapRef = useRef<mapboxgl.Map | null>(null);
+
+    const [ producerOn, setProducerOn ] = useState(true)
+    const [ receiverOn, setReceiverOn ] = useState(true)
+
+    const { t } = useTranslation();
 
     mapboxgl.accessToken = 'pk.eyJ1IjoibmNhc2VsbGEiLCJhIjoiY204dTZkb3F6MGhoNjJtcTJjYTliYnVoMiJ9.ZwkXviox2SXgZc0gofm9Eg'
 
@@ -68,16 +76,37 @@ const MapBox: React.FC = () => {
     }, []);
 
 
+    const onChangeVendors: CheckboxProps['onChange'] = (e) => {
+        setProducerOn(e.target.checked)
+    };
+
+    const onChangeReceivers: CheckboxProps['onChange'] = (e) => {
+        setReceiverOn(e.target.checked)
+    };
+
+
+
     return (
         <>
             <div id='map-container' ref={mapContainerRef}>
                 {showReceiverCard && (
                     <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}
-                    className="sliding" id="slider">
+                        className="sliding" id="slider">
                         <ReceiverCard producer={dummyProducers[0]} posts={dummyPosts} />
                     </div>
                 )}
             </div>
+            <div style={{ position: 'absolute', width: '100%',  display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div className='top-bar'>
+                    <Avatar src={'./chanwi.svg'} style={{ marginRight: '8px' }} />
+                    <Text style={{ fontWeight: 'bold', fontSize: '18px' }}>{t("chanwi")}</Text>;
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '100%', marginTop: '6px'}}>
+                    <Checkbox className="pill-checkbox" checked={producerOn} onChange={onChangeVendors}>{t("producers")}</Checkbox>;
+                    <Checkbox className="pill-checkbox" checked={receiverOn} onChange={onChangeReceivers}>{t("receivers")}</Checkbox>;
+                </div>
+            </div>
+
 
         </>
     )

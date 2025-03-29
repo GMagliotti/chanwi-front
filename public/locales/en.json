@@ -39,5 +39,7 @@
   "stock": "Stock",
   "price": "Price",
   "food_provider": "Food Details",
-  "quantity": "Quantity"
+  "quantity": "Quantity",
+  "producers": "Food Providers",
+  "receivers": "Communities"
 }

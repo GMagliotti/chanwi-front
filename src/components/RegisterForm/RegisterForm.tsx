@@ -3,10 +3,11 @@ import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router"
 import { createProducer } from "../../services/ProducerService"
+import { createConsumer } from "../../services/ConsumerService"
 
 const RegisterForm: React.FC = () => {
     const { t, i18n } = useTranslation();
-    const [selectedUserType, setSelectedUserType] = useState(t("consumer"));
+    const [selectedUserType, setSelectedUserType] = useState("consumer");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -18,8 +19,18 @@ const RegisterForm: React.FC = () => {
     const navigation = useNavigate();
 
     const onFinish = (values: any) => {
-        console.log("Hola:", values);
-        // if (selectedUserType == "consumer") navigation('/producers')
+        if (selectedUserType == "consumer") {
+            console.log("Hola:", values);
+            const consumer: Consumer = {
+             email: values.email,
+             name: values.firstName,
+             surname: values.lastName,
+             password: values.password
+            }
+
+            createConsumer(consumer)
+            navigation('/producers')
+        } 
         if (selectedUserType == "producer") createProducer(values)
         
         // if (selectedUserType == "receiver") navigation('/me-receiver')

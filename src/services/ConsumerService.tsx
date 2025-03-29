@@ -1,14 +1,11 @@
-// ReceiverService.tsx
-import axios from "axios";
+import {api} from "../api.ts";
 
-// Create a new Receiver
-export async function createReceiver(receiver: Omit<Receiver, "id">): Promise<Receiver> {
-    const response = await axios.post<Receiver>("/receivers", receiver);
+export async function createConsumer(Consumer: Consumer): Promise<Consumer> {
+    const response = await api.post<Consumer>("/consumers", Consumer);
     return response.data;
 }
 
-// Get all Receivers
-export async function getReceivers(): Promise<Receiver[]> {
-    const response = await axios.get<Receiver[]>("/receivers");
+export async function getReceivers(): Promise<Consumer[]> {
+    const response = await api.get<Consumer[]>("/consumers");
     return response.data;
 }

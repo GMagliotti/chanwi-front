@@ -42,7 +42,7 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer, posts }) => {
         <>
             <Card
                 title={<div style={{ paddingBlock: '8px' }}>{producer.businessName}<p style={{ margin: 0, fontWeight: 'normal', fontSize: '14px' }}>{producer.address}</p> </div>}
-                style={{ width: 300, textAlign: "left", marginTop: 0 }}
+                style={{ width: 300, textAlign: "left", marginTop: 0, zIndex: 5 }}
                 headStyle={{ backgroundColor: "rgba(34, 87, 122, 0.7)", }}
             // size="small"
             >
@@ -58,7 +58,7 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer, posts }) => {
                     </div>
                 ))}
             </Card>
-            <Modal title={t("purchase_confirmation")} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText={t("purchase")}   cancelButtonProps={{ style: { display: 'none' } }}>
+            <Modal title={t("purchase_confirmation")} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText={t("purchase")}   cancelButtonProps={{ style: { display: 'none'} }}>
                 <p>{t("purchase_confirmation_body")} {useTitle}?</p>
                 {t("quantity")}: <InputNumber min={1} max={10} defaultValue={1} onChange={onChange} style={{ marginTop: 10 }} />
             </Modal>

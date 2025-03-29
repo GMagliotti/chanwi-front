@@ -1,9 +1,10 @@
 declare global {
     interface Consumer {
-        id: number;
+        id?: number;
+        password?: string;
         email: string;
-        firstName: string;
-        lastName: string;
+        name: string;
+        surname: string;
     }
 }
 export { };

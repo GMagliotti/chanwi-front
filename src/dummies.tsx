@@ -57,8 +57,8 @@ export const dummyPosts: Post[] = [
 
 export const dummyConsumer: Consumer = {
     id: 301,
-    firstName: "John",
-    lastName: "Juan",
+    name: "John",
+    surname: "Juan",
     email: "JohnJuan@mail.com"
 }
 

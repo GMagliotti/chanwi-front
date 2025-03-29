@@ -27,3 +27,19 @@
     border-radius: 10px;
     cursor: pointer;
 }
+
+.pill-checkbox {
+    background-color: #f0f0f0;
+    padding: 8px 16px;
+    border-radius: 14px;
+}
+
+
+.top-bar {
+    background-color: #f0f0f0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-block: 12px;
+    align-items: center;
+}
