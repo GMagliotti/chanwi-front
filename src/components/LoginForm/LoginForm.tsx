@@ -1,8 +1,9 @@
 import { Card, Form, Input, Button } from "antd"
 import { useTranslation } from "react-i18next"
-
+import { useNavigate } from "react-router-dom"
 const LoginForm: React.FC = () => {
     const { t, i18n } = useTranslation();
+    const navigation = useNavigate();
 
     return (
         <Card title={t("login")} style={{ width: 300, margin: "auto", marginTop: "50px" }}>
@@ -22,6 +23,9 @@ const LoginForm: React.FC = () => {
             <Button onClick={() => i18n.changeLanguage(i18n.language === "en" ? "es" : "en")}>
                 {t("change_language")}
             </Button>
+            <a onClick={()=>navigation("/register")} style={{ marginTop: "10px", display: "block", textAlign: "center", color: "blue" }}>
+                {t("register_link")}
+            </a>
         </Card>
     )
 }
