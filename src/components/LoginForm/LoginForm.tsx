@@ -2,30 +2,33 @@ import { Card, Form, Input, Button, Select } from "antd"
 import { useTranslation } from "react-i18next"
 import React, { useState } from "react"
 import { useNavigate } from "react-router"
+
 const LoginForm: React.FC = () => {
     const { t, i18n } = useTranslation();
     const [selectedUserType, setSelectedUserType] = useState("consumer");
+    const [loading, setLoading] = useState(false);
     const navigation = useNavigate();
     localStorage.clear();
 
-
     const onFinish = (values: any) => {
-        // console.log("Form submitted successfully:", values);
-        localStorage.setItem('username', values.email)
-        console.log(localStorage.getItem('username'))
-        if (selectedUserType == "consumer") navigation('/producers')
-        if (selectedUserType == "producer") navigation('/me-producer')
-        if (selectedUserType == "receiver") navigation('/me-receiver')
-        // navigation("/home");
+        setLoading(true);
+        localStorage.setItem('username', values.email);
+        console.log(localStorage.getItem('username'));
+
+        setTimeout(() => { // Simulate async behavior
+            if (selectedUserType === "consumer") navigation('/producers');
+            if (selectedUserType === "producer") navigation('/me-producer');
+            if (selectedUserType === "receiver") navigation('/me-receiver');
+        }, 1000);
     };
 
     return (
-        <Card title={t("login")} style={{ width: 300, margin: "auto", }}>
+        <Card title={t("login")} style={{ width: 300, margin: "auto" }}>
             <Form layout="vertical" onFinish={onFinish}>
                 <Form.Item label={t("user_type")} style={{ marginBottom: '8px' }}>
                     <Select
                         value={selectedUserType}
-                        onChange={(value) => setSelectedUserType(value)} // Correctly updates the state
+                        onChange={(value) => setSelectedUserType(value)}
                         style={{ width: "100%" }}
                     >
                         <Select.Option value="consumer">{t("consumer")}</Select.Option>
@@ -36,18 +39,16 @@ const LoginForm: React.FC = () => {
                 <Form.Item label={t("email")} name="email" rules={[{ required: true, type: "email", message: t("enter_email") }]} style={{ marginBottom: '8px' }}>
                     <Input placeholder={t("enter_email")} />
                 </Form.Item>
-                <Form.Item label={t("password")} name="password" rules={[{ required: true, message: t("enter_password") }]} >
+                <Form.Item label={t("password")} name="password" rules={[{ required: true, message: t("enter_password") }]}>
                     <Input.Password placeholder={t("enter_password")} />
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" block>
+                    <Button type="primary" htmlType="submit" block loading={loading}>
                         {t("login_button")}
                     </Button>
                 </Form.Item>
             </Form>
-            <div style={{
-                textAlign: "center", marginTop: "10px", marginBottom: '8px'
-            }}>
+            <div style={{ textAlign: "center", marginTop: "10px", marginBottom: '8px' }}>
                 <Button onClick={() => i18n.changeLanguage(i18n.language === "en" ? "es" : "en")}>
                     {t("change_language")}
                 </Button>
@@ -59,4 +60,4 @@ const LoginForm: React.FC = () => {
     )
 }
 
-export default LoginForm
+export default LoginForm;
