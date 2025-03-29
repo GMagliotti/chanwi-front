@@ -25,5 +25,18 @@
   "login_link": "Iniciar sesión",
   "from": "De:",
   "to": "Hasta:",
-  "until": "Finaliza:"
+  "until": "Finaliza:",
+  "first_name": "Nombre",
+  "enter_first_name": "Ingresa tu nombre",
+  "last_name": "Apellido",
+  "enter_last_name": "Ingresa tu apellido",
+  "bussiness": "Nombre del negocio",
+  "enter_bussiness": "Ingresa el nombre del negocio",
+  "address": "Dirección",
+  "enter_address": "Ingresa la dirección",
+  "organization": "Nombre de la institución",
+  "enter_organization_name": "Nombre de la institución",
+  "stock": "Stock",
+  "price": "Precio",
+  "food_provider": "Detalles de Comida"
 }

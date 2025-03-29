@@ -25,5 +25,18 @@
   "login_link": "Login instead",
   "from": "From:",
   "to": "To:",
-  "until": "Activo hasta"
+  "until": "Valid until",
+  "first_name": "First name",
+  "enter_first_name": "First name",
+  "last_name": "Last name",
+  "enter_last_name": "Enter last name",
+  "bussiness": "Bussiness name",
+  "enter_bussiness": "Enter bussiness name",
+  "address": "Address",
+  "enter_address": "Enter address",
+  "organization": "Organization name",
+  "enter_organization_name": "Enter organization name",
+  "stock": "Stock",
+  "price": "Price",
+  "food_provider": "Food Details"
 }

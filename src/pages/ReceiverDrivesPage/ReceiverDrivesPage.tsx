@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router";
 import {
-    PlusCircleTwoTone
+    PlusCircleTwoTone,
+    PlusOutlined
 } from '@ant-design/icons';
 import { useTranslation } from "react-i18next";
 import { GoBackButton } from "../../components/GoBackButton/GoBackButton";
 import { dummyDrive } from "../../dummies";
 import ActiveDriveReceiverInformationCard from "../../components/ActiveDriveReceiverInformationCard/ActiveDriveReceiverInformationCard";
-import { Space } from "antd";
+import { Button, Space } from "antd";
 
 const ReceiverDrivesPage: React.FC = () => {
     const navigate = useNavigate();
@@ -23,8 +24,8 @@ const ReceiverDrivesPage: React.FC = () => {
             <ActiveDriveReceiverInformationCard
                 posts={[dummyDrive]}
             />
-            <PlusCircleTwoTone style={{ fontSize: '32px' }} onClick={() => navigate(`/me-receiver/create`)} />
-        </div>
+            <Button block icon={<PlusOutlined/>} style={{ fontSize: '26px', marginTop: '12px' }} onClick={() => navigate(`/me-producer/create`)} />
+            </div>
 
     );
 }
