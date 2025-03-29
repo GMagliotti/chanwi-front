@@ -18,7 +18,7 @@ const RegisterForm: React.FC = () => {
 
     const conditionalFields = () => {
         switch (selectedUserType) {
-            case "Consumer":
+            case "consumer":
                 return (
                     <>
                         <Form.Item label={t("first_name")} name="firstName" rules={[{ required: true, message: t("enter_first_name") }]}>
@@ -37,7 +37,7 @@ const RegisterForm: React.FC = () => {
                         </Form.Item>
                     </>
                 );
-            case "Producer":
+            case "producer":
                 return (
                     <>
                         <Form.Item label={t("bussiness")} name="bussiness" rules={[{ required: true, message: t("enter_bussiness") }]}>
@@ -56,7 +56,7 @@ const RegisterForm: React.FC = () => {
                         </Form.Item>
                     </>
                 );
-            case "Receiver":
+            case "receiver":
                 return (
                     <>
                         <Form.Item label={t("organization")} name="organizationName" rules={[{ required: true, message: t("enter_organization_name") }]}>
@@ -88,9 +88,9 @@ const RegisterForm: React.FC = () => {
                         onChange={(value) => setSelectedUserType(value)} // Correctly updates the state
                         style={{ width: "100%" }}
                     >
-                        <Select.Option value="Consumer">Consumidor</Select.Option>
-                        <Select.Option value="Producer">Producer</Select.Option>
-                        <Select.Option value="Receiver">Receiver</Select.Option>
+                        <Select.Option value="consumer">Consumidor</Select.Option>
+                        <Select.Option value="producer">Producer</Select.Option>
+                        <Select.Option value="receiver">Receiver</Select.Option>
                     </Select>
                 </Form.Item>
                 
