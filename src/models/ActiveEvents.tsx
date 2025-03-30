@@ -1,14 +1,15 @@
 interface ActiveEvent {
-    title: string;
-    description?: string;
-    start_time: Date;
-    end_time: Date;
-  }
-  
+  id?: number
+  title: string;
+  description?: string;
+  start_time: Date;
+  end_time: Date;
+}
+
 export interface ActivePost extends ActiveEvent {
-    stock: number;
-    price: number;
-    orders?: Consumer[];
+  stock: number;
+  price: number;
+  orders?: Consumer[];
 }
 
 export interface ActiveDrive extends ActiveEvent {

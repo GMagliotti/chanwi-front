@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   Form, 
   Input, 
@@ -36,12 +36,11 @@ const DriveCreationForm: React.FC<DriveCreationFormProps> = ({
   const [form] = Form.useForm();
   
   // For custom tag input
-  const [tags, setTags] = useState<string[]>([]);
-  setTags([])
+
   // const [inputTagValue, setInputTagValue] = useState<string>('');
   
   const handleSubmit = (values: DriveCreationFormValues) => {
-    onSubmit({ ...values, tags });
+    onSubmit({ ...values });
   };
   
   // Function to handle adding new tags
