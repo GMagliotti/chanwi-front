@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from '../Navbar/Navbar';
 import styles from './CustomLayout.module.css';
 
 const CustomLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
