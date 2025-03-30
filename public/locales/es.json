@@ -41,5 +41,7 @@
   "food_provider": "Detalles de Comida",
   "quantity": "Cantidad",
   "producers": "Proveedores",
-  "receivers": "Comunidades"
+  "receivers": "Comunidades",
+  "description": "Descripción",
+  "enter_description": "Ingresar la descripción"
 }

@@ -10,17 +10,17 @@ const RegisterForm: React.FC = () => {
     const [selectedUserType, setSelectedUserType] = useState("consumer");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    // const [confirmPassword, setConfirmPassword] = useState("");
     const [address, setAddress] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [bussiness, setBussiness] = useState("");
+    const [description, setDescription] = useState("");
     const [organizationName, setOrganizationName] = useState("");
     const navigation = useNavigate();
 
     const onFinish = (values: any) => {
         if (selectedUserType == "consumer") {
-            console.log("Hola:", values);
             const consumer: Consumer = {
              email: values.email,
              name: values.firstName,
@@ -31,7 +31,23 @@ const RegisterForm: React.FC = () => {
             createConsumer(consumer)
             navigation('/producers')
         } 
-        if (selectedUserType == "producer") createProducer(values)
+        if (selectedUserType == "producer") {
+            console.log("hi", values);
+            
+            const producer: Producer = {
+                email: values.email,
+                business_name: values.bussiness,
+                password: values.password,
+                address: values.address,
+                description: values.description,
+                longitude: 0,
+                latitude: 0,
+                rating: 0
+               }
+   
+            createProducer(producer)
+            navigation('/me-producer')
+        }
         
         // if (selectedUserType == "receiver") navigation('/me-receiver')
         // navigation("/home");
@@ -47,6 +63,13 @@ const RegisterForm: React.FC = () => {
                                 value={bussiness}
                                 onChange={(e) => setBussiness(e.target.value)}
                                 placeholder={t("enter_bussiness")}
+                            />
+                        </Form.Item>
+                        <Form.Item label={t("description")} name="description" rules={[{ required: true, message: t("enter_description") }]} style={{ marginBottom: '8px' }}>
+                            <Input
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                placeholder={t("enter_description")}
                             />
                         </Form.Item>
                         <Form.Item label={t("address")} name="address" rules={[{ required: true, message: t("enter_address") }]} >
@@ -128,13 +151,13 @@ const RegisterForm: React.FC = () => {
                         placeholder={t("enter_password")}
                     />
                 </Form.Item>
-                <Form.Item label={t("confirm_password")} name="confirmPassword" rules={[{ required: true, message: t("confirm_password") }]} style={{ marginBottom: '8px' }}>
+                {/* <Form.Item label={t("confirm_password")} name="confirmPassword" rules={[{ required: true, message: t("confirm_password") }]} style={{ marginBottom: '8px' }}>
                     <Input.Password
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)} // Extracts value from the event object
                         placeholder={t("enter_confirm_password")}
                     />
-                </Form.Item>
+                </Form.Item> */}
                 {conditionalFields()}
                 <Form.Item style={{ marginBottom: '8px' }}>
                     <Button type="primary" htmlType="submit" block>

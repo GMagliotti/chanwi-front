@@ -1,11 +1,14 @@
 declare global {
     interface Producer {
-        id: number;
+        id?: number;
+        password?: string;
         email: string;
-        businessName: string;
+        business_name: string;
         description?: string;
-        location: string;
+        longitude?: number;
+        latitude?: number;
         address: string;
+        rating?: number 
     }
 }
 export { };

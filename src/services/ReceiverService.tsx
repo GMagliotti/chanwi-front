@@ -1,14 +1,16 @@
-// ReceiverService.tsx
-import axios from "axios";
+import { api } from "../api.ts";
 
-// Create a new Receiver
 export async function createReceiver(receiver: Omit<Receiver, "id">): Promise<Receiver> {
-    const response = await axios.post<Receiver>("/receivers", receiver);
+    const response = await api.post<Receiver>("/receivers", receiver);
     return response.data;
 }
 
-// Get all Receivers
-export async function getReceivers(): Promise<Receiver[]> {
-    const response = await axios.get<Receiver[]>("/receivers");
+export async function getReceivers(userLatitude: number, userLongitude: number): Promise<Receiver[]> {
+    const response = await api.get<Receiver[]>("/receivers/", {
+        params: {
+            userLatitude,
+            userLongitude,
+        },
+    });
     return response.data;
 }
