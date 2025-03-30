@@ -4,6 +4,7 @@ import { Typography } from 'antd'
 const { Text } = Typography;
 import { getLocation } from '../../services/UserProfilingService';
 import { getProducers } from '../../services/ProducerService';
+import { getReceivers } from '../../services/ReceiverService';
 
 import './MapBox.css'
 
@@ -19,10 +20,13 @@ const MapBox: React.FC = () => {
 
     const [producerOn, setProducerOn] = useState(true)
     const [receiverOn, setReceiverOn] = useState(true)
+    const [receivers, setReceivers] = useState<Receiver[]>([]);
     const [userLocation, setUserLocation] = useState<{ latitude: number, longitude: number }>({
         latitude: -34.64013, // Default coordinates
         longitude: -58.40644
     });
+    const receiverMarkersRef = useRef<mapboxgl.Marker[]>([]);
+    const [selectedEntity, setSelectedEntity] = useState<Producer | Receiver | null>(null);
     const [locationLoaded, setLocationLoaded] = useState(false);
 
     const { t } = useTranslation();
@@ -104,8 +108,39 @@ const MapBox: React.FC = () => {
                         console.log("Skipping producer with invalid coordinates:", producer);
                     }
                 });
+
+                // Fetch receivers
+                const receiversData = await getReceivers(userLocation.latitude, userLocation.longitude);
+                console.log("Receivers data received:", receiversData);
+
+                if (Array.isArray(receiversData)) {
+                    setReceivers(receiversData);
+
+                    // Add receiver markers
+                    receiversData.forEach(receiver => {
+                        if (receiver && receiver.longitude && receiver.latitude) {
+                            const marker = new mapboxgl.Marker({ color: "orange" })
+                                .setLngLat([receiver.longitude, receiver.latitude])
+                                .addTo(mapRef.current!);
+
+                            marker.getElement().addEventListener("click", () => {
+                                setSelectedEntity(receiver);
+                                setShowReceiverCard(true);
+                                console.log("Clicked on receiver:", receiver.organization_name);
+                            });
+
+                            receiverMarkersRef.current.push(marker);
+                        } else {
+                            console.log("Skipping receiver with invalid coordinates:", receiver);
+                        }
+                    });
+                } else {
+                    console.error("Receivers data is not an array:", receiversData);
+                }
+
+
             } catch (error) {
-                console.error("Error fetching or processing producers:", error);
+                console.error("Error fetching or processing data:", error);
             }
         });
 
