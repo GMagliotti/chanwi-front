@@ -226,7 +226,7 @@ const MapBox: React.FC = () => {
             </div>
             <div style={{ position: 'absolute', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div className='top-bar'>
-                    <Avatar src={'./chanwi.svg'} style={{ marginRight: '8px' }} />
+                    <Avatar src={'./chanwi.svg'} style={{ marginRight: '8px', zIndex: 30}} />
                     <Text style={{ fontWeight: 'bold', fontSize: '18px' }}>{t("chanwi")}</Text>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '100%', marginTop: '6px' }}>

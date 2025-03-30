@@ -36,7 +36,7 @@ const LoginForm: React.FC = () => {
 
             if (selectedUserType === "consumer") {
                 localStorage.setItem("consumerId", loginResponse.user_id.toString());
-                navigation('/producers/');
+                navigation('/producers/' + loginResponse.user_id);
             }
             if (selectedUserType === "producer") {
                 localStorage.setItem("producerId", loginResponse.user_id.toString());
