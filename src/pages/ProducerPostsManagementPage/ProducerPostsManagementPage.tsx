@@ -35,7 +35,7 @@ const ProducerPostsManagementPage: React.FC = () => {
             {posts.map((post) => (
                 <ProducerActivePostInformationCard key={post.id} post={post} />
             ))}
-            <Button block icon={<PlusOutlined />} style={{ fontSize: '26px', marginTop: '12px' }} onClick={() => navigate(`/me-producer/create`)} />
+            <Button block icon={<PlusOutlined />} style={{ fontSize: '26px', marginTop: '12px' }} onClick={() => navigate(`/me-producer/create`)} >{posts?.length == 0 && t("create_post")}</Button>
         </div>
     );
 }

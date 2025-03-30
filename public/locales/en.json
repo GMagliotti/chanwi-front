@@ -45,5 +45,7 @@
   "description": "Description",
   "enter_description": "Enter description",
   "receiver_header": "Drive Event",
-  "invalid_credentials": "Invalid credentials"
+  "invalid_credentials": "Invalid credentials",
+  "create_event": "Start an event",
+  "create_post": "Start an offer"
 }

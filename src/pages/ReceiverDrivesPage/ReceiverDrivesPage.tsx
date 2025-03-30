@@ -41,7 +41,7 @@ const ReceiverDrivesPage: React.FC = () => {
                 <div />
             </div>
             <ActiveDriveReceiverInformationCard posts={drives} />
-            <Button block icon={<PlusOutlined />} style={{ fontSize: '26px', marginTop: '12px' }} onClick={() => navigate(`/me-receiver/create`)} />
+            <Button block icon={<PlusOutlined />} style={{ fontSize: '26px', marginTop: '12px' }} onClick={() => navigate(`/me-receiver/create`)} >{drives?.length == 0 && t("create_event")}</Button>
         </div>
 
     );

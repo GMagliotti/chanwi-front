@@ -45,6 +45,8 @@
   "description": "Descripción",
   "enter_description": "Ingresar la descripción",
   "receiver_header": "Rec. de Alimentos",
-  "invalid_credentials": "Credenciales incorrectas"
+  "invalid_credentials": "Credenciales incorrectas",
+  "create_event": "Crear un evento",
+  "create_post": "Empezar una oferta"
 
 }

@@ -3,6 +3,7 @@ import { Card, Typography, List } from 'antd';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { ActivePost } from '../../models/ActiveEvents';
+import dayjs from 'dayjs';
 
 const { Title, Text } = Typography;
 
@@ -23,13 +24,14 @@ const ProducerActivePostInformationCard: React.FC<ProducerActivePostInformationC
       {/* Header section with title, timestamp, and values in first row */}
       <div style={{ marginBottom: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '240px' }}>
         <Title level={4} className={styles.cardTitle}>{post.title}</Title>
-        <Text type="secondary" >
-          <ClockCircleOutlined />
-          {post.start_time.toLocaleString()}
+        <Text type="secondary">
+          <ClockCircleOutlined style={{ marginRight: 5 }} />
+          {dayjs(post.start_time).format("MMMM D, YYYY [at] h:mm A")}
         </Text>
-        <Text type="secondary" >
-          <ClockCircleOutlined />
-          {post.end_time.toLocaleString()}
+
+        <Text type="secondary">
+          <ClockCircleOutlined style={{ marginRight: 5 }} />
+          {dayjs(post.end_time).format("MMMM D, YYYY [at] h:mm A")}
         </Text>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
