@@ -5,7 +5,6 @@ import './App.css'
 import CustomLayout from './components/CustomLayout/CustomLayout'
 import RegisterForm from './components/RegisterForm/RegisterForm'
 import ReceiptCard from './components/Receipt/ReceiptCard'
-import { dummyOrder } from './dummies'
 import ProducerPostsManagementPage from './pages/ProducerPostsManagementPage/ProducerPostsManagementPage'
 import ProducerPostCreationPage from './pages/ProducerPostCreationPage/ProducerPostCreationPage'
 import ConsumerPage from './pages/ConsumerPage/ConsumerPage'
@@ -27,7 +26,7 @@ const App: React.FC = () => {
             <Route path='/register' element={<GenericPage FormComponent={RegisterForm}/>} />
             <Route path='/producers' element={<ConsumerPage/>} />
             <Route path='/posts/:id/' element={<ConsumerPurchasePage />} />
-            <Route path='/orders/:id/' element={<ReceiptCard order={dummyOrder} />} />
+            <Route path='/orders/:id/' element={<ReceiptCard/>} />
             <Route path='/me-producer' element={<ProducerPostsManagementPage/>} />
             <Route path='/me-producer/create' element={<ProducerPostCreationPage/>} />
             <Route path='/me-receiver' element={<ReceiverDrivesPage/>}/>

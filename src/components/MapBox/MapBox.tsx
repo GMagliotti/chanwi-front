@@ -2,7 +2,6 @@ import { useRef, useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 import { Typography } from 'antd'
 const { Text } = Typography;
-import { getLocation } from '../../services/UserProfilingService';
 import { getProducers } from '../../services/ProducerService';
 import { getReceivers } from '../../services/ReceiverService';
 
@@ -10,7 +9,6 @@ import './MapBox.css'
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import ReceiverCard from '../ReceiverCard/ReceiverCard';
-import { dummyPosts, dummyProducers } from '../../dummies';
 import { Avatar, Checkbox, CheckboxProps } from 'antd';
 import { useTranslation } from 'react-i18next';
 
@@ -20,13 +18,11 @@ const MapBox: React.FC = () => {
 
     const [producerOn, setProducerOn] = useState(true)
     const [receiverOn, setReceiverOn] = useState(true)
-    const [receivers, setReceivers] = useState<Receiver[]>([]);
     const [userLocation, setUserLocation] = useState<{ latitude: number, longitude: number }>({
         latitude: -34.64013, // Default coordinates
         longitude: -58.40644
     });
     const receiverMarkersRef = useRef<mapboxgl.Marker[]>([]);
-    const [selectedEntity, setSelectedEntity] = useState<Producer | Receiver | null>(null);
     const [locationLoaded, setLocationLoaded] = useState(false);
 
     const { t } = useTranslation();
@@ -114,7 +110,7 @@ const MapBox: React.FC = () => {
                 console.log("Receivers data received:", receiversData);
 
                 if (Array.isArray(receiversData)) {
-                    setReceivers(receiversData);
+                    // setReceivers(receiversData);
 
                     // Add receiver markers
                     receiversData.forEach(receiver => {
@@ -124,7 +120,7 @@ const MapBox: React.FC = () => {
                                 .addTo(mapRef.current!);
 
                             marker.getElement().addEventListener("click", () => {
-                                setSelectedEntity(receiver);
+                                // setSelectedEntity(receiver);
                                 setShowReceiverCard(true);
                                 console.log("Clicked on receiver:", receiver.organization_name);
                             });

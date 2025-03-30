@@ -8,7 +8,7 @@ const ReceiptCard: React.FC = () => {
     const location = useLocation();
     const { order, usePost } = location.state || {}; // Ensure safe access
 
-    const name = localStorage.getItem("name");
+    // const name = localStorage.getItem("name");
 
     if (!order) {
         return <Text type="danger">Error: No order details found.</Text>;
