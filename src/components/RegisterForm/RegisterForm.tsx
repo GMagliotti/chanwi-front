@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router"
 import { createProducer } from "../../services/ProducerService"
 import { createConsumer } from "../../services/ConsumerService"
+import { createReceiver } from "../../services/ReceiverService"
 
 const RegisterForm: React.FC = () => {
     const { t, i18n } = useTranslation();
@@ -31,9 +32,7 @@ const RegisterForm: React.FC = () => {
             createConsumer(consumer)
             navigation('/producers')
         } 
-        if (selectedUserType == "producer") {
-            console.log("hi", values);
-            
+        if (selectedUserType == "producer") {         
             const producer: Producer = {
                 email: values.email,
                 business_name: values.bussiness,
@@ -48,9 +47,19 @@ const RegisterForm: React.FC = () => {
             createProducer(producer)
             navigation('/me-producer')
         }
-        
-        // if (selectedUserType == "receiver") navigation('/me-receiver')
-        // navigation("/home");
+        if (selectedUserType == "receiver") {           
+            const receiver: Receiver = {
+                email: values.email,
+                organization_name: values.organizationName,
+                password: values.password,
+                address: values.address,
+                longitude: 0,
+                latitude: 0,
+               }
+   
+            createReceiver(receiver)
+            navigation('/me-receiver')
+        }
     };
 
     const conditionalFields = () => {
