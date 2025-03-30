@@ -5,7 +5,16 @@ export async function createOrder(order: Order): Promise<Order> {
     return response.data;
 }
 
-export async function getOrders(): Promise<Order[]> {
-    const response = await api.get<Order[]>("/orders/");
+export async function getOrders(id?: string): Promise<Order[]> {
+    const response = await api.get<Order[]>("/orders/", {
+        params: {
+            post_id: id,
+            incompleted_orders_only: true
+        },
+    });
     return response.data;
+}
+
+export async function fulfillOrder(orderId: number): Promise<void> {
+    await api.post(`/orders/${orderId}`);
 }
