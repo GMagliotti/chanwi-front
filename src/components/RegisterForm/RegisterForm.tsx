@@ -71,8 +71,9 @@ const RegisterForm: React.FC = () => {
                     latitude: latitude,
                     rating: 0
                 }
-                await createProducer(producer);
-                navigation('/me-producer');
+                const createdProducer = await createProducer(producer);
+                localStorage.setItem("producerId", createdProducer.id.toString());
+                navigation('/me-producer')
             }
             else if (selectedUserType === "receiver") {
                 // Get coordinates from the address using Mapbox
@@ -86,11 +87,18 @@ const RegisterForm: React.FC = () => {
                     longitude = coordinates[0];
                     latitude = coordinates[1];
                     message.success({ content: t("address_geocoded_successfully"), key: "geocoding" });
-                    const createdProducer: Producer = await createProducer(producer)
-                    console.log(createdProducer.id);
 
-                    localStorage.setItem("producerId", createdProducer.id.toString());
-                    navigation('/me-producer')
+                    const receiver: Receiver = {
+                        email: values.email,
+                        organization_name: values.organizationName,
+                        password: values.password,
+                        address: values.address,
+                        longitude: longitude,
+                        latitude: latitude,
+                    }
+                    const createdReceiver = await createReceiver(receiver);
+                    localStorage.setItem("receiverId", createdReceiver.id.toString());
+                    navigation('/me-receiver')
                 } catch (error) {
                     console.error("Error geocoding address:", error);
                     message.error({
@@ -99,16 +107,6 @@ const RegisterForm: React.FC = () => {
                     });
                     // Continue with default coordinates (0,0)
                 }
-                const receiver: Receiver = {
-                    email: values.email,
-                    organization_name: values.organizationName,
-                    password: values.password,
-                    address: values.address,
-                    longitude: longitude,
-                    latitude: latitude,
-                }
-                await createReceiver(receiver);
-                navigation('/me-receiver');
             }
         } catch (error) {
             console.error("Error during registration:", error);
@@ -184,25 +182,7 @@ const RegisterForm: React.FC = () => {
                         </Form.Item>
                     </>
                 );
-            default:
-                return (
-                    <>
-                        <Form.Item label={t("first_name")} name="firstName" rules={[{ required: true, message: t("enter_first_name") }]} style={{ marginBottom: '8px' }}>
-                            <Input
-                                value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
-                                placeholder={t("enter_first_name")}
-                            />
-                        </Form.Item>
-                        <Form.Item label={t("last_name")} name="lastName" rules={[{ required: true, message: t("enter_last_name") }]} >
-                            <Input
-                                value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
-                                placeholder={t("enter_last_name")}
-                            />
-                        </Form.Item>
-                    </>
-                );
+
         }
     }
 
@@ -254,7 +234,6 @@ const RegisterForm: React.FC = () => {
                     {t("change_language")}
                 </Button>
             </div>
-            <a onClick={() => navigation("/")} style={{ marginTop: "20px", display: "block", textAlign: "center", color: "blue" }}>
             <a onClick={() => navigation("/")} style={{ marginTop: "20px", display: "block", textAlign: "center", color: "blue" }}>
                 {t("login_link")}
             </a>
