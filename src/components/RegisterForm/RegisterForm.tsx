@@ -36,6 +36,7 @@ const RegisterForm: React.FC = () => {
                 try {
                     const createdConsumer: Consumer = await createConsumer(consumer);
                     localStorage.setItem("consumerId", createdConsumer.id.toString());
+                    localStorage.setItem("name", values.name + ' ' + values.surname);
                     navigation('/producers');
                 } catch (error) {
                     console.error("Error creating consumer:", error);

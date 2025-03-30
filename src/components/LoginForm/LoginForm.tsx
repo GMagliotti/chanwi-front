@@ -31,7 +31,8 @@ const LoginForm: React.FC = () => {
     
             const loginResponse: Login = await postLogin(login);
             console.log(login, loginResponse)
-    
+            localStorage.setItem("name", values.email);
+
             if (selectedUserType === "consumer") navigation('/producers');
             if (selectedUserType === "producer") navigation('/me-producer');
             if (selectedUserType === "receiver") navigation('/me-receiver');

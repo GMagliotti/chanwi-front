@@ -37,6 +37,7 @@ const DriveCreationForm: React.FC<DriveCreationFormProps> = ({
   
   // For custom tag input
   const [tags, setTags] = useState<string[]>([]);
+  setTags([])
   // const [inputTagValue, setInputTagValue] = useState<string>('');
   
   const handleSubmit = (values: DriveCreationFormValues) => {
