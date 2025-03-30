@@ -1,8 +1,8 @@
 declare global {
     interface Order {
-        id: number;
-        producer: Producer;
-        consumer: Consumer;
+        id?: number;
+        post_id: number;
+        consumer_id: number;
         quantity: number;
         received: boolean;
     }

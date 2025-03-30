@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { getPosts } from "../../services/PostService";
+import { createOrder } from "../../services/OrderService";
 
 interface ProducerProps {
     producer: Producer;
@@ -12,16 +13,19 @@ interface ProducerProps {
 const ReceiverCard: React.FC<ProducerProps> = ({ producer }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
-    const [useTitle, setTitle] = useState<string>("");
+    const [usePost, setPost] = useState<Post>();
 
     const [useCount, setCount] = useState<any>(1);
 
     const [posts, setPosts] = useState<Post[]>();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const showModal = (title: string) => {
+    const consumerId: string = localStorage.getItem('consumerId');
+    const consumerIdNumber: number = parseInt(consumerId || '', 10);
+
+    const showModal = (post: Post) => {
         setIsModalOpen(true);
-        setTitle(title)
+        setPost(post)
     };
 
     useEffect(() => {
@@ -33,9 +37,15 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer }) => {
     }, [producer]);
 
     const handleOk = () => {
+        const order: Order = {
+            post_id: usePost.id,
+            consumer_id: consumerIdNumber,
+            quantity: useCount,
+            received: false
+        }
         // TODO
+        createOrder(order)
         navigate(`/orders/${1}`, { state: { useCount } })
-        // hacer un post con useCount
         setIsModalOpen(false);
     };
 
@@ -55,11 +65,11 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer }) => {
                 headStyle={{ backgroundColor: "rgba(34, 87, 122, 0.7)", }}
             // size="small"
             >
-                {posts.map((post) => (
+                {posts?.map((post) => (
                     <div
                         key={post.id}
                         // onClick={() => navigate(`/posts/${post.id}`, { state: { post, producer } })}
-                        onClick={() => showModal(post.title)}
+                        onClick={() => showModal(post)}
                         style={{ cursor: "pointer" }}
 
                     >
@@ -68,7 +78,7 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer }) => {
                 ))}
             </Card>
             <Modal title={t("purchase_confirmation")} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText={t("purchase")} cancelButtonProps={{ style: { display: 'none' } }}>
-                <p>{t("purchase_confirmation_body")} {useTitle}?</p>
+                <p>{t("purchase_confirmation_body")} {usePost?.title}?</p>
                 {t("quantity")}: <InputNumber min={1} max={10} defaultValue={1} onChange={onChange} style={{ marginTop: 10 }} />
             </Modal>
         </>
