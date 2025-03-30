@@ -2,26 +2,35 @@ import { Card, InputNumber, InputNumberProps, Modal } from "antd"
 import LunchBoxCard from "../LunchboxCard/LunchBoxCard";
 import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getPosts } from "../../services/PostService";
 
 interface ProducerProps {
     producer: Producer;
-    posts: Post[];
 }
 
-const ReceiverCard: React.FC<ProducerProps> = ({ producer, posts }) => {
+const ReceiverCard: React.FC<ProducerProps> = ({ producer }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const [useTitle, setTitle] = useState<string>("");
 
     const [useCount, setCount] = useState<any>(1);
 
+    const [posts, setPosts] = useState<Post[]>();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = (title: string) => {
         setIsModalOpen(true);
         setTitle(title)
     };
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const fetchedPosts = await getPosts(producer.id.toString());
+            setPosts(fetchedPosts);
+        };
+        fetchPosts();
+    }, [producer]);
 
     const handleOk = () => {
         // TODO
@@ -49,8 +58,8 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer, posts }) => {
                 {posts.map((post) => (
                     <div
                         key={post.id}
-                        // onClick={() => navigate(`/posts/${post.id}`, { state: { post, producer } })} 
-                        onClick={() => showModal(post.title)} 
+                        // onClick={() => navigate(`/posts/${post.id}`, { state: { post, producer } })}
+                        onClick={() => showModal(post.title)}
                         style={{ cursor: "pointer" }}
 
                     >
@@ -58,7 +67,7 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer, posts }) => {
                     </div>
                 ))}
             </Card>
-            <Modal title={t("purchase_confirmation")} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText={t("purchase")}   cancelButtonProps={{ style: { display: 'none'} }}>
+            <Modal title={t("purchase_confirmation")} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText={t("purchase")} cancelButtonProps={{ style: { display: 'none' } }}>
                 <p>{t("purchase_confirmation_body")} {useTitle}?</p>
                 {t("quantity")}: <InputNumber min={1} max={10} defaultValue={1} onChange={onChange} style={{ marginTop: 10 }} />
             </Modal>

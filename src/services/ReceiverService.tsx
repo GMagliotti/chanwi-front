@@ -5,11 +5,11 @@ export async function createReceiver(receiver: Omit<Receiver, "id">): Promise<Re
     return response.data;
 }
 
-export async function getReceivers(userLatitude: number, userLongitude: number): Promise<Receiver[]> {
+export async function getReceivers(user_latitude: number, user_longitude: number): Promise<Receiver[]> {
     const response = await api.get<Receiver[]>("/receivers/", {
         params: {
-            userLatitude,
-            userLongitude,
+            user_latitude: user_latitude,
+            user_longitude: user_longitude,
         },
     });
     return response.data;
