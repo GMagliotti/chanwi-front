@@ -1,6 +1,7 @@
 import { useLocation } from "react-router";
 import { Card, Typography, Divider } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getProducer } from "../../services/ProducerService";
 
 const { Title, Text } = Typography;
 
@@ -9,6 +10,16 @@ const ReceiptCard: React.FC = () => {
     const { order, usePost } = location.state || {}; // Ensure safe access
 
     // const name = localStorage.getItem("name");
+    const [producer, setProducer] = useState<Producer | null>(null);
+
+    useEffect(() => {
+        const fetchProducer = async () => {
+            if (!usePost) return; 
+            const fetchedProducer = await getProducer(usePost.producer_id);
+            setProducer(fetchedProducer);
+        };
+        fetchProducer();
+    }, [usePost]); 
 
     if (!order) {
         return <Text type="danger">Error: No order details found.</Text>;
@@ -39,8 +50,10 @@ const ReceiptCard: React.FC = () => {
                 <Text><strong>Product:</strong> {usePost.title}</Text>
                 <br />
                 <Text><strong>Quantity:</strong> {order.quantity}</Text>
+                <br />                
+                <Text><strong>Producer Name:</strong> {producer?.business_name}</Text>
                 <br />
-                <Text><strong>Location:</strong> {order.quantity}</Text>
+                <Text><strong>Location:</strong> {producer?.address}</Text>
                 <br />
                 <Text><strong>Received:</strong> {order.received ? "✅ Yes" : "❌ No"}</Text>
 

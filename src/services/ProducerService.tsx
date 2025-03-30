@@ -17,3 +17,8 @@ export async function getProducers(user_latitude: number, user_longitude: number
     });
     return response.data;
 }
+
+export async function getProducer(producerId: number): Promise<Producer> {
+    const response = await api.get<Producer>("/producers/" + producerId);
+    return response.data;
+}

@@ -16,7 +16,7 @@ const ProducerPostCreationPage = () => {
         console.log(producerId)
         
         const post: Post = {
-            producerId: producerIdNumber,
+            producer_id: producerIdNumber,
             title: values.name,
             description: values.description,
             price: values.price,
