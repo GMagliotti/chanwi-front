@@ -20,19 +20,24 @@ const RegisterForm: React.FC = () => {
     const [organizationName, setOrganizationName] = useState("");
     const navigation = useNavigate();
 
-    const onFinish = (values: any) => {
+    const onFinish = async (values: any) => {
         if (selectedUserType == "consumer") {
             const consumer: Consumer = {
-             email: values.email,
-             name: values.firstName,
-             surname: values.lastName,
-             password: values.password
+                email: values.email,
+                name: values.firstName,
+                surname: values.lastName,
+                password: values.password
             }
 
-            createConsumer(consumer)
-            navigation('/producers')
-        } 
-        if (selectedUserType == "producer") {         
+            try {
+                const createdConsumer: Consumer = await createConsumer(consumer);
+                localStorage.setItem("consumerId", createdConsumer.id.toString());
+                navigation('/producers');
+            } catch (error) {
+                console.error("Error creating consumer:", error);
+            }
+        }
+        if (selectedUserType == "producer") {
             const producer: Producer = {
                 email: values.email,
                 business_name: values.bussiness,
@@ -42,12 +47,19 @@ const RegisterForm: React.FC = () => {
                 longitude: 0,
                 latitude: 0,
                 rating: 0
-               }
-   
-            createProducer(producer)
-            navigation('/me-producer')
+            }
+
+            try {
+                const createdProducer: Producer = await createProducer(producer)
+                console.log(createdProducer.id);
+                
+                localStorage.setItem("producerId", createdProducer.id.toString());
+                navigation('/me-producer')
+            } catch (error) {
+                console.error("Error creating producer:", error);
+            }
         }
-        if (selectedUserType == "receiver") {           
+        if (selectedUserType == "receiver") {
             const receiver: Receiver = {
                 email: values.email,
                 organization_name: values.organizationName,
@@ -55,10 +67,14 @@ const RegisterForm: React.FC = () => {
                 address: values.address,
                 longitude: 0,
                 latitude: 0,
-               }
-   
-            createReceiver(receiver)
-            navigation('/me-receiver')
+            }
+            try {
+                const createdReceiver: Receiver = await createReceiver(receiver)
+                localStorage.setItem("receiverId", createdReceiver.id.toString());
+                navigation('/me-receiver')
+            } catch (error) {
+                console.error("Error creating receiver:", error);
+            }
         }
     };
 
@@ -109,25 +125,25 @@ const RegisterForm: React.FC = () => {
                         </Form.Item>
                     </>
                 );
-                default:
-                    return (
-                        <>
-                            <Form.Item label={t("first_name")} name="firstName" rules={[{ required: true, message: t("enter_first_name") }]} style={{ marginBottom: '8px' }}>
-                                <Input
-                                    value={firstName}
-                                    onChange={(e) => setFirstName(e.target.value)}
-                                    placeholder={t("enter_first_name")}
-                                />
-                            </Form.Item>
-                            <Form.Item label={t("last_name")} name="lastName" rules={[{ required: true, message: t("enter_last_name") }]} >
-                                <Input
-                                    value={lastName}
-                                    onChange={(e) => setLastName(e.target.value)}
-                                    placeholder={t("enter_last_name")}
-                                />
-                            </Form.Item>
-                        </>
-                    );
+            default:
+                return (
+                    <>
+                        <Form.Item label={t("first_name")} name="firstName" rules={[{ required: true, message: t("enter_first_name") }]} style={{ marginBottom: '8px' }}>
+                            <Input
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                                placeholder={t("enter_first_name")}
+                            />
+                        </Form.Item>
+                        <Form.Item label={t("last_name")} name="lastName" rules={[{ required: true, message: t("enter_last_name") }]} >
+                            <Input
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                                placeholder={t("enter_last_name")}
+                            />
+                        </Form.Item>
+                    </>
+                );
         }
     }
 
@@ -179,7 +195,7 @@ const RegisterForm: React.FC = () => {
                     {t("change_language")}
                 </Button>
             </div>
-            <a onClick={() => navigation("/")} style={{ marginTop: "20px", display: "block", textAlign: "center", color: "blue"}}>
+            <a onClick={() => navigation("/")} style={{ marginTop: "20px", display: "block", textAlign: "center", color: "blue" }}>
                 {t("login_link")}
             </a>
         </Card>

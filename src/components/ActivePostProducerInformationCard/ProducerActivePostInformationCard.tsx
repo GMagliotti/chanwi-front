@@ -1,5 +1,5 @@
 import styles from './ProducerActivePostInformationCard.module.css';
-import { Card, Typography, Space, List } from 'antd';
+import { Card, Typography, List } from 'antd';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { ActivePost } from '../../models/ActiveEvents';
@@ -25,11 +25,11 @@ const ProducerActivePostInformationCard: React.FC<ProducerActivePostInformationC
         <Title level={4} className={styles.cardTitle}>{post.title}</Title>
         <Text type="secondary" >
           <ClockCircleOutlined />
-          {post.start.toLocaleString()}
+          {post.start_time.toLocaleString()}
         </Text>
         <Text type="secondary" >
           <ClockCircleOutlined />
-          {post.end.toLocaleString()}
+          {post.end_time.toLocaleString()}
         </Text>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>

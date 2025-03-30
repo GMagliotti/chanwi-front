@@ -43,5 +43,6 @@
   "producers": "Proveedores",
   "receivers": "Comunidades",
   "description": "Descripción",
-  "enter_description": "Ingresar la descripción"
+  "enter_description": "Ingresar la descripción",
+  "receiver_header": "Rec. de Alimentos"
 }

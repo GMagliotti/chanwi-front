@@ -1,8 +1,8 @@
 interface ActiveEvent {
     title: string;
-    description: string;
-    start: Date;
-    end: Date;
+    description?: string;
+    start_time: Date;
+    end_time: Date;
   }
   
 export interface ActivePost extends ActiveEvent {
@@ -11,4 +11,7 @@ export interface ActivePost extends ActiveEvent {
     orders?: Consumer[];
 }
 
-export interface ActiveDrive extends ActiveEvent {}
+export interface ActiveDrive extends ActiveEvent {
+  desc?: string;
+  receiver_id: number;
+}

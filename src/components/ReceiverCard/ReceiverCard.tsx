@@ -1,4 +1,4 @@
-import { Card, InputNumber, Modal } from "antd"
+import { Card, InputNumber, InputNumberProps, Modal } from "antd"
 import LunchBoxCard from "../LunchboxCard/LunchBoxCard";
 import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
@@ -41,7 +41,7 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer, posts }) => {
     return (
         <>
             <Card
-                title={<div style={{ paddingBlock: '8px' }}>{producer.businessName}<p style={{ margin: 0, fontWeight: 'normal', fontSize: '14px' }}>{producer.address}</p> </div>}
+                title={<div style={{ paddingBlock: '8px' }}>{producer.business_name}<p style={{ margin: 0, fontWeight: 'normal', fontSize: '14px' }}>{producer.address}</p> </div>}
                 style={{ width: 300, textAlign: "left", marginTop: 0, zIndex: 5 }}
                 headStyle={{ backgroundColor: "rgba(34, 87, 122, 0.7)", }}
             // size="small"
