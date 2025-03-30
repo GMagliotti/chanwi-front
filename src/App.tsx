@@ -24,13 +24,13 @@ const App: React.FC = () => {
             <Route path='/' element={<GenericPage FormComponent={LoginForm}/>} />
             <Route path='/login' element={<GenericPage FormComponent={LoginForm}/>} />
             <Route path='/register' element={<GenericPage FormComponent={RegisterForm}/>} />
-            <Route path='/producers' element={<ConsumerPage/>} />
+            <Route path='/producers/:id/' element={<ConsumerPage/>} />
             <Route path='/posts/:id/' element={<ConsumerPurchasePage />} />
             <Route path='/orders/:id/' element={<ReceiptCard/>} />
-            <Route path='/me-producer' element={<ProducerPostsManagementPage/>} />
-            <Route path='/me-producer/create' element={<ProducerPostCreationPage/>} />
-            <Route path='/me-receiver' element={<ReceiverDrivesPage/>}/>
-            <Route path='/me-receiver/create' element={<ReceiverDrivesCreationPage/>}/>
+            <Route path='/me-producer/:id/' element={<ProducerPostsManagementPage/>} />
+            <Route path='/me-producer/:id/create' element={<ProducerPostCreationPage/>} />
+            <Route path='/me-receiver/:id/' element={<ReceiverDrivesPage/>}/>
+            <Route path='/me-receiver/:id/create' element={<ReceiverDrivesCreationPage/>}/>
           </Routes>
         }
       </CustomLayout>

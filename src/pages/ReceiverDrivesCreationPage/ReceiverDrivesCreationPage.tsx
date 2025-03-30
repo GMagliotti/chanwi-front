@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { GoBackButton } from "../../components/GoBackButton/GoBackButton";
 import DriveCreationForm from "../../components/DriveCreationForm/DriveCreationForm";
 import { useTranslation } from "react-i18next";
@@ -9,7 +9,8 @@ const ReceiverDrivesCreationPage = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
-    const receiverId: string = localStorage.getItem('receiverId');
+    const { id } = useParams();
+    const receiverId: string = id;
     const receiverIdNumber: number = parseInt(receiverId || '', 10);
 
     const handleSubmit = async (values: any) => {
@@ -26,7 +27,7 @@ const ReceiverDrivesCreationPage = () => {
 
         try {
             await createDrive(receiverId, activeDrive);
-            navigate('/me-receiver');
+            navigate('/me-receiver/' + receiverId);
         } catch (error) {
             console.error('Error creating drive:', error);
         }

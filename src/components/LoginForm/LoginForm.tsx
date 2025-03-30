@@ -40,11 +40,11 @@ const LoginForm: React.FC = () => {
             }
             if (selectedUserType === "producer") {
                 localStorage.setItem("producerId", loginResponse.user_id.toString());
-                navigation('/me-producer');
+                navigation('/me-producer/' + loginResponse.user_id);
             }
             if (selectedUserType === "receiver") {
                 localStorage.setItem("receiverId", loginResponse.user_id.toString());
-                navigation('/me-receiver');
+                navigation('/me-receiver/' + loginResponse.user_id);
             }
         } catch (error) {
             console.error("Login failed", error);
