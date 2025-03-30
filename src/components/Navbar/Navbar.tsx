@@ -1,9 +1,8 @@
-import { Row, Col, Spin, Divider } from 'antd';
-import React, { useState } from 'react';
-import AppHeader from '../AppHeader/AppHeader';
+import { Row, Divider } from 'antd';
+import React from 'react';
 
 const Navbar: React.FC = () => {
-    const [ username, setUsername ] = useState(localStorage.getItem('username'))
+    //const [ username, setUsername ] = useState(localStorage.getItem('username'))
 
     
     return (

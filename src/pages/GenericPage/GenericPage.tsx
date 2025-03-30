@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import AppHeader from "../../components/AppHeader/AppHeader";
 
 interface GenericPageProps {
@@ -6,7 +6,7 @@ interface GenericPageProps {
 }
 
 const GenericPage: React.FC<GenericPageProps> = ({ FormComponent }) => {
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', paddingInline: '32px', paddingTop:'42px' , alignItems:'center' }}>

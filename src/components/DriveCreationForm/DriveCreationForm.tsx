@@ -3,14 +3,11 @@ import {
   Form, 
   Input, 
   DatePicker, 
-  InputNumber, 
   Button, 
-  Space, 
   Row, 
   Col, 
   Card
 } from 'antd';
-import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
 const { TextArea } = Input;
@@ -40,24 +37,24 @@ const DriveCreationForm: React.FC<DriveCreationFormProps> = ({
   
   // For custom tag input
   const [tags, setTags] = useState<string[]>([]);
-  const [inputTagValue, setInputTagValue] = useState<string>('');
+  // const [inputTagValue, setInputTagValue] = useState<string>('');
   
   const handleSubmit = (values: DriveCreationFormValues) => {
     onSubmit({ ...values, tags });
   };
   
   // Function to handle adding new tags
-  const handleAddTag = () => {
-    if (inputTagValue && !tags.includes(inputTagValue)) {
-      setTags([...tags, inputTagValue]);
-      setInputTagValue('');
-    }
-  };
+  // const handleAddTag = () => {
+  //   if (inputTagValue && !tags.includes(inputTagValue)) {
+  //     setTags([...tags, inputTagValue]);
+  //     setInputTagValue('');
+  //   }
+  // };
   
   // Function to remove a tag
-  const handleRemoveTag = (removedTag: string) => {
-    setTags(tags.filter(tag => tag !== removedTag));
-  };
+  // const handleRemoveTag = (removedTag: string) => {
+  //   setTags(tags.filter(tag => tag !== removedTag));
+  // };
 
   return (
     <Card title="Event Details" style={{ width: '100%', maxWidth: 800, margin: '0 auto' }}>
