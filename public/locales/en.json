@@ -44,5 +44,6 @@
   "receivers": "Communities",
   "description": "Description",
   "enter_description": "Enter description",
-  "receiver_header": "Drive Event"
+  "receiver_header": "Drive Event",
+  "invalid_credentials": "Invalid credentials"
 }

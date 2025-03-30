@@ -44,5 +44,7 @@
   "receivers": "Comunidades",
   "description": "Descripción",
   "enter_description": "Ingresar la descripción",
-  "receiver_header": "Rec. de Alimentos"
+  "receiver_header": "Rec. de Alimentos",
+  "invalid_credentials": "Credenciales incorrectas"
+
 }

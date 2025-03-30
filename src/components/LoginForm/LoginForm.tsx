@@ -1,7 +1,8 @@
-import { Card, Form, Input, Button, Select } from "antd"
+import { Card, Form, Input, Button, Select, message } from "antd"
 import { useTranslation } from "react-i18next"
 import React, { useState } from "react"
 import { useNavigate } from "react-router"
+import { postLogin } from "../../services/LoginService"
 
 const LoginForm: React.FC = () => {
     const { t, i18n } = useTranslation();
@@ -9,17 +10,37 @@ const LoginForm: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigate();
     localStorage.clear();
+    const [messageApi, contextHolder] = message.useMessage();
 
-    const onFinish = (values: any) => {
+    const showErrorMessage = () => {
+        messageApi.open({
+          type: 'error',
+          content: t("invalid_credentials"),
+        });
+      };
+
+    const onFinish = async (values: any) => { 
         setLoading(true);
-        localStorage.setItem('username', values.email);
-        console.log(localStorage.getItem('username'));
-
-        setTimeout(() => { // Simulate async behavior
+    
+        try {
+            const login: Login = {
+                password: values.password,
+                role: selectedUserType,
+                email: values.email
+            };
+    
+            const loginResponse: Login = await postLogin(login);
+            console.log(login, loginResponse)
+    
             if (selectedUserType === "consumer") navigation('/producers');
             if (selectedUserType === "producer") navigation('/me-producer');
             if (selectedUserType === "receiver") navigation('/me-receiver');
-        }, 1000);
+        } catch (error) {
+            console.error("Login failed", error);
+            showErrorMessage()
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -56,6 +77,8 @@ const LoginForm: React.FC = () => {
             <a onClick={() => navigation("/register")} style={{ marginTop: "20px", display: "block", textAlign: "center", color: "blue" }}>
                 {t("register_link")}
             </a>
+            {contextHolder}
+
         </Card>
     )
 }
