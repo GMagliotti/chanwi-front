@@ -1,9 +1,10 @@
-import { Card, Form, Input, Button, Select } from "antd"
+import { Card, Form, Input, Button, Select, message } from "antd"
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router"
 import { createProducer } from "../../services/ProducerService"
 import { createConsumer } from "../../services/ConsumerService"
+import { MapboxGeocoder } from "../../utils"
 import { createReceiver } from "../../services/ReceiverService"
 
 const RegisterForm: React.FC = () => {
@@ -18,63 +19,102 @@ const RegisterForm: React.FC = () => {
     const [bussiness, setBussiness] = useState("");
     const [description, setDescription] = useState("");
     const [organizationName, setOrganizationName] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigation = useNavigate();
+    const geocoder = new MapboxGeocoder();
 
     const onFinish = async (values: any) => {
-        if (selectedUserType == "consumer") {
-            const consumer: Consumer = {
-                email: values.email,
-                name: values.firstName,
-                surname: values.lastName,
-                password: values.password
+        try {
+            setIsSubmitting(true);
+            if (selectedUserType === "consumer") {
+                const consumer: Consumer = {
+                    email: values.email,
+                    name: values.firstName,
+                    surname: values.lastName,
+                    password: values.password
+                }
+                try {
+                    const createdConsumer: Consumer = await createConsumer(consumer);
+                    localStorage.setItem("consumerId", createdConsumer.id.toString());
+                    navigation('/producers');
+                } catch (error) {
+                    console.error("Error creating consumer:", error);
+                }
             }
+            else if (selectedUserType === "producer") {
+                // Get coordinates from the address using Mapbox
+                let longitude = 0;
+                let latitude = 0;
+                try {
+                    // Let the user know we're geocoding their address
+                    message.loading({ content: t("geocoding_address"), key: "geocoding" });
+                    // Get coordinates from Mapbox
+                    const coordinates = await geocoder.getCoordinates(values.address);
+                    longitude = coordinates[0];
+                    latitude = coordinates[1];
+                    message.success({ content: t("address_geocoded_successfully"), key: "geocoding" });
+                } catch (error) {
+                    console.error("Error geocoding address:", error);
+                    message.error({
+                        content: t("geocoding_failed_using_default"),
+                        key: "geocoding"
+                    });
+                    // Continue with default coordinates (0,0)
+                }
+                const producer: Producer = {
+                    email: values.email,
+                    business_name: values.bussiness,
+                    password: values.password,
+                    address: values.address,
+                    description: values.description,
+                    longitude: longitude,
+                    latitude: latitude,
+                    rating: 0
+                }
+                await createProducer(producer);
+                navigation('/me-producer');
+            }
+            else if (selectedUserType === "receiver") {
+                // Get coordinates from the address using Mapbox
+                let longitude = 0;
+                let latitude = 0;
+                try {
+                    // Let the user know we're geocoding their address
+                    message.loading({ content: t("geocoding_address"), key: "geocoding" });
+                    // Get coordinates from Mapbox
+                    const coordinates = await geocoder.getCoordinates(values.address);
+                    longitude = coordinates[0];
+                    latitude = coordinates[1];
+                    message.success({ content: t("address_geocoded_successfully"), key: "geocoding" });
+                    const createdProducer: Producer = await createProducer(producer)
+                    console.log(createdProducer.id);
 
-            try {
-                const createdConsumer: Consumer = await createConsumer(consumer);
-                localStorage.setItem("consumerId", createdConsumer.id.toString());
-                navigation('/producers');
-            } catch (error) {
-                console.error("Error creating consumer:", error);
+                    localStorage.setItem("producerId", createdProducer.id.toString());
+                    navigation('/me-producer')
+                } catch (error) {
+                    console.error("Error geocoding address:", error);
+                    message.error({
+                        content: t("geocoding_failed_using_default"),
+                        key: "geocoding"
+                    });
+                    // Continue with default coordinates (0,0)
+                }
+                const receiver: Receiver = {
+                    email: values.email,
+                    organization_name: values.organizationName,
+                    password: values.password,
+                    address: values.address,
+                    longitude: longitude,
+                    latitude: latitude,
+                }
+                await createReceiver(receiver);
+                navigation('/me-receiver');
             }
-        }
-        if (selectedUserType == "producer") {
-            const producer: Producer = {
-                email: values.email,
-                business_name: values.bussiness,
-                password: values.password,
-                address: values.address,
-                description: values.description,
-                longitude: 0,
-                latitude: 0,
-                rating: 0
-            }
-
-            try {
-                const createdProducer: Producer = await createProducer(producer)
-                console.log(createdProducer.id);
-                
-                localStorage.setItem("producerId", createdProducer.id.toString());
-                navigation('/me-producer')
-            } catch (error) {
-                console.error("Error creating producer:", error);
-            }
-        }
-        if (selectedUserType == "receiver") {
-            const receiver: Receiver = {
-                email: values.email,
-                organization_name: values.organizationName,
-                password: values.password,
-                address: values.address,
-                longitude: 0,
-                latitude: 0,
-            }
-            try {
-                const createdReceiver: Receiver = await createReceiver(receiver)
-                localStorage.setItem("receiverId", createdReceiver.id.toString());
-                navigation('/me-receiver')
-            } catch (error) {
-                console.error("Error creating receiver:", error);
-            }
+        } catch (error) {
+            console.error("Error during registration:", error);
+            message.error(t("registration_error"));
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -144,6 +184,25 @@ const RegisterForm: React.FC = () => {
                         </Form.Item>
                     </>
                 );
+            default:
+                return (
+                    <>
+                        <Form.Item label={t("first_name")} name="firstName" rules={[{ required: true, message: t("enter_first_name") }]} style={{ marginBottom: '8px' }}>
+                            <Input
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                                placeholder={t("enter_first_name")}
+                            />
+                        </Form.Item>
+                        <Form.Item label={t("last_name")} name="lastName" rules={[{ required: true, message: t("enter_last_name") }]} >
+                            <Input
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                                placeholder={t("enter_last_name")}
+                            />
+                        </Form.Item>
+                    </>
+                );
         }
     }
 
@@ -185,8 +244,8 @@ const RegisterForm: React.FC = () => {
                 </Form.Item> */}
                 {conditionalFields()}
                 <Form.Item style={{ marginBottom: '8px' }}>
-                    <Button type="primary" htmlType="submit" block>
-                        Register
+                    <Button type="primary" htmlType="submit" block loading={isSubmitting}>
+                        {t("register")}
                     </Button>
                 </Form.Item>
             </Form>
@@ -195,6 +254,7 @@ const RegisterForm: React.FC = () => {
                     {t("change_language")}
                 </Button>
             </div>
+            <a onClick={() => navigation("/")} style={{ marginTop: "20px", display: "block", textAlign: "center", color: "blue" }}>
             <a onClick={() => navigation("/")} style={{ marginTop: "20px", display: "block", textAlign: "center", color: "blue" }}>
                 {t("login_link")}
             </a>
