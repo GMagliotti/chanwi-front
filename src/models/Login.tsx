@@ -4,6 +4,7 @@ declare global {
         password: string;
         email: string;
         role: string;
+        user_id?: string;
     }
 }
 export { };

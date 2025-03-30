@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import ProducerActivePostInformationCard from "../../components/ActivePostProducerInformationCard/ProducerActivePostInformationCard";
 import {
     PlusOutlined
@@ -13,7 +13,8 @@ const ProducerPostsManagementPage: React.FC = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
-    const producerId: string = localStorage.getItem('producerId');
+    const { id } = useParams();
+    const producerId: string = id
     const [posts, setPosts] = useState<Post[]>([]);
 
     useEffect(() => {
@@ -35,7 +36,7 @@ const ProducerPostsManagementPage: React.FC = () => {
             {posts.map((post) => (
                 <ProducerActivePostInformationCard key={post.id} post={post} />
             ))}
-            <Button block icon={<PlusOutlined />} style={{ fontSize: '26px', marginTop: '12px' }} onClick={() => navigate(`/me-producer/create`)} >{posts?.length == 0 && t("create_post")}</Button>
+            <Button block icon={<PlusOutlined />} style={{ fontSize: '26px', marginTop: '12px' }} onClick={() => navigate('/me-producer/' + producerId + '/create')} >{posts?.length == 0 && t("create_post")}</Button>
         </div>
     );
 }

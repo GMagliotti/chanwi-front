@@ -74,7 +74,7 @@ const RegisterForm: React.FC = () => {
                 }
                 const createdProducer = await createProducer(producer);
                 localStorage.setItem("producerId", createdProducer.id.toString());
-                navigation('/me-producer')
+                navigation('/me-producer/' + createdProducer.id)
             }
             else if (selectedUserType === "receiver") {
                 // Get coordinates from the address using Mapbox
@@ -99,7 +99,7 @@ const RegisterForm: React.FC = () => {
                     }
                     const createdReceiver = await createReceiver(receiver);
                     localStorage.setItem("receiverId", createdReceiver.id.toString());
-                    navigation('/me-receiver')
+                    navigation('/me-receiver/' + createdReceiver.id)
                 } catch (error) {
                     console.error("Error geocoding address:", error);
                     message.error({

@@ -14,28 +14,38 @@ const LoginForm: React.FC = () => {
 
     const showErrorMessage = () => {
         messageApi.open({
-          type: 'error',
-          content: t("invalid_credentials"),
+            type: 'error',
+            content: t("invalid_credentials"),
         });
-      };
+    };
 
-    const onFinish = async (values: any) => { 
+    const onFinish = async (values: any) => {
         setLoading(true);
-    
+
         try {
             const login: Login = {
                 password: values.password,
                 role: selectedUserType,
                 email: values.email
             };
-    
+
             const loginResponse: Login = await postLogin(login);
-            console.log(login, loginResponse)
+            console.log(login, loginResponse.user_id.toString())
+
             localStorage.setItem("name", values.email);
 
-            if (selectedUserType === "consumer") navigation('/producers');
-            if (selectedUserType === "producer") navigation('/me-producer');
-            if (selectedUserType === "receiver") navigation('/me-receiver');
+            if (selectedUserType === "consumer") {
+                localStorage.setItem("consumerId", loginResponse.user_id.toString());
+                navigation('/producers/');
+            }
+            if (selectedUserType === "producer") {
+                localStorage.setItem("producerId", loginResponse.user_id.toString());
+                navigation('/me-producer/' + loginResponse.user_id);
+            }
+            if (selectedUserType === "receiver") {
+                localStorage.setItem("receiverId", loginResponse.user_id.toString());
+                navigation('/me-receiver/' + loginResponse.user_id);
+            }
         } catch (error) {
             console.error("Login failed", error);
             showErrorMessage()

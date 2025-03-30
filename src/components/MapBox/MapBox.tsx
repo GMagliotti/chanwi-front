@@ -11,6 +11,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import ReceiverCard from '../ReceiverCard/ReceiverCard';
 import { Avatar, Checkbox, CheckboxProps } from 'antd';
 import { useTranslation } from 'react-i18next';
+import ReceiverCard2 from '../ReceiverCard/ReceiverCard2';
 
 const MapBox: React.FC = () => {
     const mapContainerRef = useRef<HTMLDivElement | null>(null);
@@ -25,11 +26,13 @@ const MapBox: React.FC = () => {
         longitude: -58.40644
     });
     const [locationLoaded, setLocationLoaded] = useState(false);
+    const [showProducerCard, setShowProducerCard] = useState(false);
     const [showReceiverCard, setShowReceiverCard] = useState(false);
 
     const [producers, setProducers] = useState<Producer[]>([]);
     const [receivers, setReceivers] = useState<Receiver[]>([]);
-    const [selectedEntity, setSelectedEntity] = useState<any>(null);
+    const [selectedProducer, setSelectedProducer] = useState<Producer>(null);
+    const [selecterReceiver, setSelectedReceiver] = useState<Receiver>(null);
 
     const { t } = useTranslation();
 
@@ -102,8 +105,9 @@ const MapBox: React.FC = () => {
                                 .addTo(mapRef.current!);
 
                             marker.getElement().addEventListener("click", () => {
-                                setSelectedEntity(producer);
-                                setShowReceiverCard(true);
+                                setSelectedProducer(producer);
+                                setShowReceiverCard(false);
+                                setShowProducerCard(true);
                                 console.log("Clicked on producer:", producer.business_name);
                             });
 
@@ -132,8 +136,9 @@ const MapBox: React.FC = () => {
                                 .addTo(mapRef.current!);
 
                             marker.getElement().addEventListener("click", () => {
-                                setSelectedEntity(receiver);
+                                setSelectedReceiver(receiver);
                                 setShowReceiverCard(true);
+                                setShowProducerCard(false);
                                 console.log("Clicked on receiver:", receiver.organization_name);
                             });
 
@@ -206,10 +211,16 @@ const MapBox: React.FC = () => {
     return (
         <>
             <div id='map-container' ref={mapContainerRef}>
-                {showReceiverCard && selectedEntity && (
+                {showProducerCard && selectedProducer && (
                     <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}
                         className="sliding" id="slider">
-                        <ReceiverCard producer={selectedEntity} />
+                        <ReceiverCard producer={selectedProducer} />
+                    </div>
+                )}
+                {showReceiverCard && selecterReceiver && (
+                    <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}
+                        className="sliding" id="slider">
+                        <ReceiverCard2 receiver={selecterReceiver} />
                     </div>
                 )}
             </div>

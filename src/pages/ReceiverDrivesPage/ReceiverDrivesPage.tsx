@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import {
     PlusOutlined
 } from '@ant-design/icons';
@@ -14,7 +14,9 @@ const ReceiverDrivesPage: React.FC = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
-    const receiverId: string = localStorage.getItem('receiverId');
+
+    const { id } = useParams();
+    const receiverId: string = id
     const receiverIdNumber: number = parseInt(receiverId || '', 10);
     const [drives, setDrives] = useState<ActiveDrive[]>([]);
 
@@ -41,7 +43,7 @@ const ReceiverDrivesPage: React.FC = () => {
                 <div />
             </div>
             <ActiveDriveReceiverInformationCard posts={drives} />
-            <Button block icon={<PlusOutlined />} style={{ fontSize: '26px', marginTop: '12px' }} onClick={() => navigate(`/me-receiver/create`)} >{drives?.length == 0 && t("create_event")}</Button>
+            <Button block icon={<PlusOutlined />} style={{ fontSize: '26px', marginTop: '12px' }} onClick={() => navigate('/me-receiver/' + receiverId + '/create')} >{drives?.length == 0 && t("create_event")}</Button>
         </div>
 
     );
