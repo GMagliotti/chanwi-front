@@ -5,6 +5,7 @@ import { useNavigate } from "react-router"
 import { createProducer } from "../../services/ProducerService"
 import { createConsumer } from "../../services/ConsumerService"
 import { MapboxGeocoder } from "../../utils"
+import { createReceiver } from "../../services/ReceiverService"
 
 const RegisterForm: React.FC = () => {
     const { t, i18n } = useTranslation();
@@ -25,7 +26,6 @@ const RegisterForm: React.FC = () => {
     const onFinish = async (values: any) => {
         try {
             setIsSubmitting(true);
-
             if (selectedUserType === "consumer") {
                 const consumer: Consumer = {
                     email: values.email,
@@ -33,7 +33,6 @@ const RegisterForm: React.FC = () => {
                     surname: values.lastName,
                     password: values.password
                 }
-
                 await createConsumer(consumer);
                 navigation('/producers');
             }
@@ -41,17 +40,13 @@ const RegisterForm: React.FC = () => {
                 // Get coordinates from the address using Mapbox
                 let longitude = 0;
                 let latitude = 0;
-
                 try {
-
                     // Let the user know we're geocoding their address
                     message.loading({ content: t("geocoding_address"), key: "geocoding" });
-
                     // Get coordinates from Mapbox
                     const coordinates = await geocoder.getCoordinates(values.address);
                     longitude = coordinates[0];
                     latitude = coordinates[1];
-
                     message.success({ content: t("address_geocoded_successfully"), key: "geocoding" });
                 } catch (error) {
                     console.error("Error geocoding address:", error);
@@ -61,7 +56,6 @@ const RegisterForm: React.FC = () => {
                     });
                     // Continue with default coordinates (0,0)
                 }
-
                 const producer: Producer = {
                     email: values.email,
                     business_name: values.bussiness,
@@ -72,9 +66,39 @@ const RegisterForm: React.FC = () => {
                     latitude: latitude,
                     rating: 0
                 }
-
                 await createProducer(producer);
                 navigation('/me-producer');
+            }
+            else if (selectedUserType === "receiver") {
+                // Get coordinates from the address using Mapbox
+                let longitude = 0;
+                let latitude = 0;
+                try {
+                    // Let the user know we're geocoding their address
+                    message.loading({ content: t("geocoding_address"), key: "geocoding" });
+                    // Get coordinates from Mapbox
+                    const coordinates = await geocoder.getCoordinates(values.address);
+                    longitude = coordinates[0];
+                    latitude = coordinates[1];
+                    message.success({ content: t("address_geocoded_successfully"), key: "geocoding" });
+                } catch (error) {
+                    console.error("Error geocoding address:", error);
+                    message.error({
+                        content: t("geocoding_failed_using_default"),
+                        key: "geocoding"
+                    });
+                    // Continue with default coordinates (0,0)
+                }
+                const receiver: Receiver = {
+                    email: values.email,
+                    organization_name: values.organizationName,
+                    password: values.password,
+                    address: values.address,
+                    longitude: longitude,
+                    latitude: latitude,
+                }
+                await createReceiver(receiver);
+                navigation('/me-receiver');
             }
         } catch (error) {
             console.error("Error during registration:", error);
