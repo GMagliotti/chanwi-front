@@ -1,9 +1,9 @@
 declare global {
     interface Receiver {
-        id: number;
+        id?: number;
+        password?: string;
         email: string;
-        password: string;
-        organizationName: string;
+        organization_name: string;
         latitude: number;
         longitude: number;
         address: string;
