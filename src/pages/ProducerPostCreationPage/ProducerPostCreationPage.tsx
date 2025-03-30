@@ -14,7 +14,7 @@ const ProducerPostCreationPage = () => {
     const handleSubmit = async (values: any) => {
         console.log(values);
         console.log(producerId)
-        
+
         const post: Post = {
             producer_id: producerIdNumber,
             title: values.name,

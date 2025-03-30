@@ -11,6 +11,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import ReceiverCard from '../ReceiverCard/ReceiverCard';
 import { Avatar, Checkbox, CheckboxProps } from 'antd';
 import { useTranslation } from 'react-i18next';
+import ReceiverCard2 from '../ReceiverCard/ReceiverCard2';
 
 const MapBox: React.FC = () => {
     const mapContainerRef = useRef<HTMLDivElement | null>(null);
@@ -213,13 +214,13 @@ const MapBox: React.FC = () => {
                 {showProducerCard && selectedProducer && (
                     <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}
                         className="sliding" id="slider">
-                        <ReceiverCard producer={selectedEntity} />
+                        <ReceiverCard producer={selectedProducer} />
                     </div>
                 )}
                 {showReceiverCard && selecterReceiver && (
                     <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}
                         className="sliding" id="slider">
-                        <ReceiverCard2 producer={selectedEntity} />
+                        <ReceiverCard2 receiver={selecterReceiver} />
                     </div>
                 )}
             </div>

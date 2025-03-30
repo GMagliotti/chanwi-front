@@ -24,6 +24,8 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer }) => {
     const consumerIdNumber: number = parseInt(consumerId || '', 10);
 
     const showModal = (post: Post) => {
+        if (post.stock == 0)
+            return;
         setIsModalOpen(true);
         setPost(post)
     };
@@ -44,7 +46,7 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer }) => {
             received: false
         }
         // TODO
-        createOrder(order)        
+        createOrder(order)
         navigate(`/orders/${1}`, { state: { order, usePost } })
         setIsModalOpen(false);
     };
