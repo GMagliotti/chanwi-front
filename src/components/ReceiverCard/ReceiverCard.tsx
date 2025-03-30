@@ -45,7 +45,7 @@ const ReceiverCard: React.FC<ProducerProps> = ({ producer }) => {
         }
         // TODO
         createOrder(order)
-        navigate(`/orders/${1}`, { state: { useCount } })
+        navigate(`/orders/${1}`, { state: { order, usePost } })
         setIsModalOpen(false);
     };
 
