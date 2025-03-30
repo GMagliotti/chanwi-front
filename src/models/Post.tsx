@@ -1,7 +1,7 @@
 declare global {
     interface Post {
         id?: number;
-        producerId?: number | string;
+        producer_id?: number | string;
         title: string;
         description: string;
         price: number;

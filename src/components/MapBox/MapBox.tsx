@@ -15,6 +15,8 @@ import { useTranslation } from 'react-i18next';
 const MapBox: React.FC = () => {
     const mapContainerRef = useRef<HTMLDivElement | null>(null);
     const mapRef = useRef<mapboxgl.Map | null>(null);
+    const producerMarkersRef = useRef<mapboxgl.Marker[]>([]);
+    const receiverMarkersRef = useRef<mapboxgl.Marker[]>([]);
 
     const [producerOn, setProducerOn] = useState(true)
     const [receiverOn, setReceiverOn] = useState(true)
@@ -22,15 +24,16 @@ const MapBox: React.FC = () => {
         latitude: -34.64013, // Default coordinates
         longitude: -58.40644
     });
-    const receiverMarkersRef = useRef<mapboxgl.Marker[]>([]);
     const [locationLoaded, setLocationLoaded] = useState(false);
+    const [showReceiverCard, setShowReceiverCard] = useState(false);
+
+    const [producers, setProducers] = useState<Producer[]>([]);
+    const [receivers, setReceivers] = useState<Receiver[]>([]);
+    const [selectedEntity, setSelectedEntity] = useState<any>(null);
 
     const { t } = useTranslation();
 
     mapboxgl.accessToken = 'pk.eyJ1IjoibmNhc2VsbGEiLCJhIjoiY204dTZkb3F6MGhoNjJtcTJjYTliYnVoMiJ9.ZwkXviox2SXgZc0gofm9Eg'
-
-    const [showReceiverCard, setShowReceiverCard] = useState(false);
-    const [producers, setProducers] = useState<Producer[]>();
 
     // Step 1: Get user location first
     useEffect(() => {
@@ -86,41 +89,50 @@ const MapBox: React.FC = () => {
             try {
                 // Get producers data
                 const producersData = await getProducers(userLocation.latitude, userLocation.longitude);
+                console.log("Producers data received:", producersData);
 
-                setProducers(producersData); // Updates state, but we don't rely on it immediately
+                if (Array.isArray(producersData)) {
+                    setProducers(producersData);
 
-                // Add markers for each producer using the fetched data directly
-                producersData.forEach(producer => {
-                    if (producer && producer.longitude && producer.latitude) {
-                        const marker = new mapboxgl.Marker({ color: "green" })
-                            .setLngLat([producer.longitude, producer.latitude])
-                            .addTo(mapRef.current!);
+                    // Add markers for each producer using the fetched data directly
+                    producersData.forEach(producer => {
+                        if (producer && producer.longitude && producer.latitude) {
+                            const marker = new mapboxgl.Marker({ color: "#22c55e" }) // Green color
+                                .setLngLat([producer.longitude, producer.latitude])
+                                .addTo(mapRef.current!);
 
-                        marker.getElement().addEventListener("click", () => {
-                            setShowReceiverCard(true);
-                            console.log("Clicked on producer:", producer.business_name);
-                        });
-                    } else {
-                        console.log("Skipping producer with invalid coordinates:", producer);
-                    }
-                });
+                            marker.getElement().addEventListener("click", () => {
+                                setSelectedEntity(producer);
+                                setShowReceiverCard(true);
+                                console.log("Clicked on producer:", producer.business_name);
+                            });
+
+                            // Store the marker reference for toggling visibility later
+                            producerMarkersRef.current.push(marker);
+                        } else {
+                            console.log("Skipping producer with invalid coordinates:", producer);
+                        }
+                    });
+                } else {
+                    console.error("Producers data is not an array:", producersData);
+                }
 
                 // Fetch receivers
                 const receiversData = await getReceivers(userLocation.latitude, userLocation.longitude);
                 console.log("Receivers data received:", receiversData);
 
                 if (Array.isArray(receiversData)) {
-                    // setReceivers(receiversData);
+                    setReceivers(receiversData);
 
                     // Add receiver markers
                     receiversData.forEach(receiver => {
                         if (receiver && receiver.longitude && receiver.latitude) {
-                            const marker = new mapboxgl.Marker({ color: "orange" })
+                            const marker = new mapboxgl.Marker({ color: "#f97316" }) // Orange color
                                 .setLngLat([receiver.longitude, receiver.latitude])
                                 .addTo(mapRef.current!);
 
                             marker.getElement().addEventListener("click", () => {
-                                // setSelectedEntity(receiver);
+                                setSelectedEntity(receiver);
                                 setShowReceiverCard(true);
                                 console.log("Clicked on receiver:", receiver.organization_name);
                             });
@@ -133,13 +145,10 @@ const MapBox: React.FC = () => {
                 } else {
                     console.error("Receivers data is not an array:", receiversData);
                 }
-
-
             } catch (error) {
                 console.error("Error fetching or processing data:", error);
             }
         });
-
 
         mapRef.current.on("dragstart", () => {
             setShowReceiverCard(false);
@@ -154,17 +163,35 @@ const MapBox: React.FC = () => {
                 mapRef.current.remove();
                 mapRef.current = null;
             }
+            // Clear marker references
+            producerMarkersRef.current = [];
+            receiverMarkersRef.current = [];
         };
     }, [locationLoaded, userLocation]);
 
-    // Update markers when filter changes
+    // Update markers visibility when filter changes
     useEffect(() => {
         if (!mapRef.current || !locationLoaded) return;
 
-        // Here you can add logic to update markers based on producerOn and receiverOn states
-        console.log("Filters changed, producers:", producerOn, "receivers:", receiverOn);
+        // Toggle producer markers visibility
+        producerMarkersRef.current.forEach(marker => {
+            const element = marker.getElement();
+            if (producerOn) {
+                element.style.display = '';
+            } else {
+                element.style.display = 'none';
+            }
+        });
 
-        // You would remove existing markers and add new ones based on filters
+        // Toggle receiver markers visibility
+        receiverMarkersRef.current.forEach(marker => {
+            const element = marker.getElement();
+            if (receiverOn) {
+                element.style.display = '';
+            } else {
+                element.style.display = 'none';
+            }
+        });
 
     }, [producerOn, receiverOn, locationLoaded]);
 
@@ -179,10 +206,10 @@ const MapBox: React.FC = () => {
     return (
         <>
             <div id='map-container' ref={mapContainerRef}>
-                {showReceiverCard && (
+                {showReceiverCard && selectedEntity && (
                     <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}
                         className="sliding" id="slider">
-                        <ReceiverCard producer={producers[0]} />
+                        <ReceiverCard producer={selectedEntity} />
                     </div>
                 )}
             </div>
